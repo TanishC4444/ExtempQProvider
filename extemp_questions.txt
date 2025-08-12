@@ -22,6 +22,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: International
+<<<<<<< HEAD
 Q1. To what extent does Putin's uncompromising stance in the war in Ukraine reflect his desire for a broader deal with the United States?
 
 Category: International
@@ -29,6 +30,15 @@ Q2. How effective are Russia's demands on Ukraine, and what factors contribute t
 
 Category: International
 Q3. What implications does Putin's plan to use a summit with Trump to negotiate a peace treaty have for Ukraine's future relationship with NATO and its sovereignty?
+=======
+Q1. What are the implications of Russia's uncompromising demands in Ukraine for a potential Putin-Trump summit, and how might these demands affect the future of NATO membership and Western presence in Eastern Europe?
+
+Category: International
+Q2. To what extent does Putin's vision of a peace deal with Ukraine align with his earlier goals for Russia's influence in the region, and how might this alignment impact the outcome of any negotiations between Russia and Ukraine?
+
+Category: International
+Q3. What factors contribute to the exhausted and outgunned Ukrainian forces' struggle against Russian advances in the war in Ukraine, and how might these factors affect the likelihood of a successful ceasefire or peace deal in the near future?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -39,6 +49,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic/International
+<<<<<<< HEAD
 Q1. To what extent does the disciplinary action against senior commanders in the paramilitary force address the root causes of corruption within the Popular Mobilization Forces?
 
 Category: Domestic/International
@@ -46,6 +57,15 @@ Q2. What are the implications of the government-commissioned investigation into 
 
 Category: Domestic/International
 Q3. How effective are the disciplinary measures against senior commanders in the paramilitary force in promoting accountability and maintaining public trust in the Popular Mobilization Forces?
+=======
+Q1. To what extent does the disciplinary action against senior commanders in Kataib Hezbollah reflect the Iraqi government's commitment to maintaining law and order?
+
+Category: Domestic/International 
+Q2. What are the implications of the investigation into the attack on the government facility for the future of the relationship between the Iraqi state and the Popular Mobilization Forces (PMF)?
+
+Category: Domestic/International
+Q3. How effective do you think the disciplinary measures against senior commanders in Kataib Hezbollah will be in addressing corruption within the PMF, and what other steps should be taken to ensure accountability?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -56,6 +76,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic Politics
+<<<<<<< HEAD
 Q1. To what extent does the Republican-backed tax bill signed by President Donald Trump make "America poorer and sicker," as Senator Ruben Gallego claims?
 
 Category: Domestic Politics
@@ -63,6 +84,15 @@ Q2. What are the implications of the massive, Republican-backed tax bill for Dem
 
 Category: Domestic Politics
 Q3. How effective is Senator Ruben Gallego's strategy of attacking the Republican-backed tax bill in safe Republican districts, given the majority of Republicans in Congress heeding GOP leaders' suggestion to keep lower public profiles during the August recess following closely on Trump's signing of the tax cut and spending reduction bill last month?
+=======
+Q1. To what extent does the Republican-backed tax bill signed by President Trump make "America poorer and sicker," as Senator Ruben Gallego claims?
+
+Category: Domestic Politics
+Q2. What are the political implications for Republicans trying to hold their narrow majorities in Congress in next year's midterm elections, given the opposition to the tax bill from Democrats like Senator Ruben Gallego?
+
+Category: Domestic Politics
+Q3. How effective is the strategy of Democratic activists to rally against the Republican-backed tax bill as a means of galvanizing support for their party in the 2026 elections, considering the divided opinions on the measure among Republicans and Democrats?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -73,6 +103,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does the shooting at the Centers for Disease Control and Prevention headquarters in Atlanta reflect the growing distrust of science and public health institutions in the United States?
 
 Category: International
@@ -80,6 +111,15 @@ Q2. What are the implications of the COVID-19 vaccine conspiracy theories for gl
 
 Category: Domestic
 Q3. How effective are President Biden's efforts to rebuild trust in the Centers for Disease Control and Prevention after years of politicization under the Trump administration?
+=======
+Q1. To what extent should President Biden address the concerns of the Fired But Fighting group in his administration's policies towards the Centers for Disease Control and Prevention?
+
+Category: International
+Q2. What are the implications of this shooting on the global perception of science and public health institutions, particularly in countries with a history of anti-science movements?
+
+Category: Domestic
+Q3. How effective are current measures to protect federal workers from hostility and mistrust, given the recent wave of terminations at the Centers for Disease Control and Prevention?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -90,6 +130,7 @@ Info: News Article: Europe Promises To Stand Firmly With Ukraine As Trump Putin 
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: International
+<<<<<<< HEAD
 Q1. To what extent should the United States prioritize diplomacy over military intervention when dealing with Russia's actions in Ukraine?
 
 Category: Domestic
@@ -97,6 +138,15 @@ Q2. What are the implications of President Trump's decision to meet with Russian
 
 Category: International
 Q3. How effective do you think the European leaders' statement supporting Ukraine and calling for continued support and pressure on Russia will be in achieving a just and lasting peace in Ukraine?
+=======
+Q1. What are the implications of President Trump's decision to meet with Russian President Putin to discuss ending the war in Ukraine?
+
+Category: Domestic/International
+Q2. To what extent do European leaders support President Trump's efforts to end the conflict in Ukraine, and how effective do you think their diplomatic pressure will be on Russia?
+
+Category: International
+Q3. What factors contribute to the ongoing violence in eastern and southern Ukraine, and how can a just and lasting peace be achieved through diplomacy and military support for Ukraine?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -110,10 +160,17 @@ Category: Domestic
 Q1. To what extent should Los Angeles officials prioritize water conservation over repairing the broken valve in Porter Ranch and Granada Hills?
 
 Category: Domestic
+<<<<<<< HEAD
 Q2. What factors contribute to the delay in restoring water service in Porter Ranch and Granada Hills, and how effective are current measures to address these challenges?
 
 Category: Domestic
 Q3. How can the Los Angeles Department of Water and Power improve its communication with residents during water outages to ensure compliance with boil water advisories and promote efficient water conservation practices?
+=======
+Q2. What factors contribute to the delay in restoring water service in Porter Ranch and Granada Hills, and how effective are the current measures being taken by the Department of Water and Power?
+
+Category: Domestic
+Q3. How can the city of Los Angeles balance the need for water conservation with the restoration of normal water service in Porter Ranch and Granada Hills, and what implications does this have for future water crises in the region?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -123,6 +180,7 @@ Info: News Article from
 ================================================================================
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
+<<<<<<< HEAD
 Category: Domestic/International
 Q1. To what extent does the Online Safety Act effectively protect children from harmful online content, and what are the implications of this legislation for free expression and democratic values?
 
@@ -131,6 +189,16 @@ Q2. What factors contribute to the varying levels of support for the new rules a
 
 Category: Domestic/International
 Q3. How effective are age verification methods such as photo ID checks and selfie analysis in verifying user ages across national borders, and what are the potential consequences for privacy and individual rights if these methods become more widely adopted?
+=======
+Category: International
+Q1. To what extent does the Online Safety Act threaten free expression and democratic values?
+
+Category: Domestic
+Q2. What are the implications of age-verification laws on American technology companies and citizens' privacy rights?
+
+Category: International
+Q3. How effective do you think the Online Safety Act will be in preventing minors from accessing harmful content online, and what factors could hinder its success?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -141,6 +209,7 @@ Info: BBC News Article (c4gm7n5j8vpo)
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does Cristiano Ronaldo's legacy impact Portugal's current football culture?
 
 Category: International
@@ -148,6 +217,15 @@ Q2. How effective are national teams in promoting cultural exchange and understa
 
 Category: Comparative Analysis
 Q3. What factors contribute to the success of a football club, and how do they differ across different leagues and regions?
+=======
+Q1. To what extent does Cristiano Ronaldo's legacy influence Portugal's current footballing culture?
+
+Category: International
+Q2. How effective are international competitions in promoting cultural exchange and understanding between nations?
+
+Category: Comparative
+Q3. What factors contribute to the success of a football club, and how do these vary across different leagues and countries?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -158,6 +236,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What factors should be considered when choosing under bed storage containers for a college student or recent grad with a low bed?
 
 Category: Domestic
@@ -165,6 +244,15 @@ Q2. How effective are tall under bed storage options for home and under bed stor
 
 Category: Domestic
 Q3. What are the implications of using sustainable and aesthetically pleasing under bed storage options versus traditional plastic bins or boxes?
+=======
+Q1. What are the implications of using under bed storage containers for college students and recent graduates? How effective are they in freeing up space in their homes?
+
+Category: International
+Q2. To what extent do sustainable and aesthetically pleasing under bed storage options influence consumer preferences? What factors should be considered when choosing between these types of storage solutions?
+
+Category: Domestic
+Q3. How does the choice of materials (canvas vs. plastic) impact the effectiveness of under bed storage containers for storing bulkier bedding and jackets? Should colleges and universities promote the use of canvas or plastic for this purpose?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -174,6 +262,7 @@ Info: BBC News Article (c4g02vzyj5lo)
 ================================================================================
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
+<<<<<<< HEAD
 Category: International
 Q1. To what extent does England's dominant performance against France reflect their strength and readiness for the 2025 World Cup?
 
@@ -182,6 +271,16 @@ Q2. What factors contribute to England's winning streak, and how effective has d
 
 Category: International
 Q3. How does Kildunne's performance against France impact her potential as a star player in the 2025 World Cup, and what role will she play in England's success?
+=======
+Category: Domestic/International
+Q1. To what extent does England's winning streak over France reflect their overall performance in international rugby?
+
+Category: Domestic/International
+Q2. How effective is John Mitchell's coaching style in improving England's defense, and what implications does this have for their chances at the 2025 World Cup?
+
+Category: Domestic/International
+Q3. What factors contribute to England's success in recent international rugby matches, and how can they maintain this momentum leading into the 2025 World Cup?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -192,6 +291,7 @@ Info: BBC News Article (ckglnk6yxlko)
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should the government intervene in the bourbon industry to protect it from market fluctuations?
 
 Category: International
@@ -199,6 +299,15 @@ Q2. What are the implications of Canada's decision to stop buying US booze on th
 
 Category: Domestic
 Q3. How effective are government regulations in promoting the growth and sustainability of the bourbon industry, and what role should private companies play in this process?
+=======
+Q1. To what extent does the decline in sales of Kentucky bourbon reflect broader shifts in American consumer preferences?
+
+Category: Domestic
+Q2. What factors contribute to the growing list of casualties among Kentucky bourbon distilleries, and how effective are government policies in addressing these challenges?
+
+Category: International
+Q3. How do international trade tensions and restrictions on US imports impact the bourbon industry in Kentucky, and what strategies can distilleries adopt to mitigate these effects?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -208,6 +317,7 @@ Info: BBC News Article (c4ged13jjglo)
 ================================================================================
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
+<<<<<<< HEAD
 Category: Domestic
 Q1. To what extent does the expansion of military operations in Gaza pose a threat to the safety of Israeli citizens?
 
@@ -216,6 +326,16 @@ Q2. What are the implications of Israel's plan to expand its military control ov
 
 Category: Domestic
 Q3. How effective is the Israeli government's approach to resolving the hostage crisis in Gaza, and what alternative solutions could be considered?
+=======
+Category: International
+Q1. To what extent does the expansion of military operations in Gaza put the lives of hostages at risk, and how effective are Israel's plans to ensure their safety?
+
+Category: Domestic
+Q2. What factors contribute to the growing opposition among Israeli soldiers to serving in the expanded military operation in Gaza, and what implications does this have for Netanyahu's plan?
+
+Category: International
+Q3. How effective are Israel's plans to disarm Hamas and demilitarize the Gaza Strip in achieving long-term peace between Israel and Palestine, and what alternative solutions could be explored?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -226,6 +346,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of the Trump administration's decision to strip protections from some asylum applicants who filed as far back as 2019?
 
 Category: Domestic
@@ -233,6 +354,15 @@ Q2. To what extent does the shortage of asylum officers contribute to the curren
 
 Category: Domestic
 Q3. How effective is the Trump administration's new policy requiring immigrants who entered the country illegally to be put in detention without an opportunity for release while they fight their cases?
+=======
+Q1. To what extent does the Trump administration's policy of stripping protections from some asylum applicants who filed as far back as 2019 reflect the current immigration crisis in the United States?
+
+Category: Domestic
+Q2. What are the implications of the Trump administration's policy of stripping protections from some asylum applicants for the future of the U.S. immigration system?
+
+Category: Domestic
+Q3. How effective is the Trump administration's policy of stripping protections from some asylum applicants in addressing the issue of backlogged credible fear interviews at the border, and what alternative solutions could be implemented to address this problem?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -243,6 +373,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of the FDA's recommendation to classify 7-OH as an illicit substance for its potential for abuse?
 
 Category: International
@@ -250,6 +381,15 @@ Q2. How effective are current regulations on kratom products in preventing addic
 
 Category: Domestic
 Q3. To what extent do social media influencers contribute to the misinformation about kratom's safety and effectiveness?
+=======
+Q1. What are the implications of the FDA's recommendation to classify 7-OH as an illicit substance for public health and safety?
+
+Category: International
+Q2. How effective are current regulations on kratom products in preventing addiction and serious adverse events, and what role should governments play in regulating this industry?
+
+Category: Domestic
+Q3. To what extent does the popularity of kratom as a self-treatment option for various conditions contribute to its potential for abuse and addiction, and how can stakeholders address these concerns while still promoting its potential benefits?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -260,6 +400,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does the popularity of Labubu contribute to consumerism and materialism in American culture?
 
 Category: Domestic
@@ -267,6 +408,15 @@ Q2. What factors contribute to the marketed rarity and blind box system of Labub
 
 Category: Domestic
 Q3. How effective are counterfeit alternatives like "Lafufus" in satisfying consumer demand for authentic Labubu, and what implications does this have on intellectual property rights and consumer protection?
+=======
+Q1. To what extent does the popularity of Labubu contribute to the rise of counterfeit goods in the market?
+
+Category: International
+Q2. How effective are blind box systems in promoting consumer demand for collectibles, and what implications do they have on ethical business practices?
+
+Category: Domestic
+Q3. What factors contribute to the appeal of Labubu, and how does this influence consumer behavior in terms of purchasing decisions and brand loyalty?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -276,6 +426,7 @@ Info: News Article from
 ================================================================================
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
+<<<<<<< HEAD
 Category: Environmental Protection
 Q1. To what extent should environmental protections be prioritized over border security?
 
@@ -284,6 +435,16 @@ Q2. What are the implications of the southern border wall on wildlife conservati
 
 Category: Endangered Species
 Q3. How effective are current policies and initiatives in protecting endangered species from extinction due to habitat loss or human interference?
+=======
+Category: Environmental Conservation
+Q1. To what extent does the construction of the southern border wall pose an existential threat to jaguars north of the border?
+
+Category: International Relations
+Q2. What are the implications of the Trump administration's efforts to crack down on migrant crossings for the natural recovery of jaguars north of the border?
+
+Category: Environmental Law
+Q3. To what extent does the lawsuit challenging Noem's authority to waive "bedrock environmental protections" reflect the importance of preserving the San Rafael wildlife corridor for biodiversity conservation?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -294,6 +455,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should states be allowed to enact policies that restrict access to public facilities for transgender individuals?
 
 Category: Domestic
@@ -301,6 +463,15 @@ Q2. How effective are anti-discrimination laws in protecting the rights of margi
 
 Category: Domestic
 Q3. What factors contribute to the increasing polarization of political views among parents and educators regarding issues related to gender identity and expression in schools?
+=======
+Q1. To what extent do anti-trans bills impact the mental health of children in schools?
+
+Category: Domestic
+Q2. What are the implications of Vermillion's policy on transgender students' access to education and facilities?
+
+Category: Domestic
+Q3. How effective are state laws against transgender individuals using public restrooms, and what factors contribute to their success or failure?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -311,6 +482,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: International
+<<<<<<< HEAD
 Q1. To what extent should Russia be held accountable for its actions in Ukraine, and how effective are diplomatic efforts to resolve the conflict?
 
 Category: Domestic
@@ -318,6 +490,15 @@ Q2. What factors contribute to the increase in Ukrainian drone attacks on Russia
 
 Category: International
 Q3. How effective are international leaders' statements of support for Ukraine in resolving the conflict, and what role should they play in any peace negotiations?
+=======
+Q1. To what extent should Russia be held accountable for its actions in Ukraine?
+
+Category: Domestic
+Q2. What are the implications of Trump's meeting with Putin on the ongoing conflict in Ukraine?
+
+Category: International
+Q3. How effective are diplomatic efforts to resolve the conflict in Ukraine, and what role should the international community play?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -328,6 +509,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does Los Angeles' history of resource planning and governance contribute to its current challenges, and how can these issues be addressed through policy changes or technological advancements?
 
 Category: International
@@ -335,6 +517,15 @@ Q2. What are the implications of Los Angeles' emergence as a global pioneer in r
 
 Category: Domestic
 Q3. How effective are autonomous mobility services in complementing existing public transportation systems in Los Angeles, and what role do they play in promoting economic opportunities and social equity in disadvantaged neighborhoods?
+=======
+Q1. To what extent does the criticism of Los Angeles as an unsustainable city reflect the challenges faced by urban planners in the United States?
+
+Category: Domestic
+Q2. What are the implications of Los Angeles's focus on rethinking the curb for the future of urban planning and transportation in the United States?
+
+Category: Domestic
+Q3. How effective is Los Angeles's approach to managing stormwater and heat through an "ecological mesh" compared to traditional park systems, and what factors should be considered when implementing such a solution in other cities?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -345,6 +536,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of the increasing use of autonomous technology in wildfire fighting for the future of firefighting?
 
 Category: Domestic
@@ -352,6 +544,15 @@ Q2. To what extent should governments invest in advanced technology to combat wi
 
 Category: Domestic
 Q3. What factors contribute to the increasing use of autonomous technology in wildfire fighting, and how do these factors impact the future of firefighting?
+=======
+Q1. How effective are current firefighting technologies in mitigating the effects of climate change on California wildfires?
+
+Category: Domestic
+Q2. What are the implications of implementing autonomous helicopters and drones in firefighting operations for the future of the industry?
+
+Category: Domestic
+Q3. To what extent do advanced technologies such as augmented reality, AI-powered cameras, and smart fire trucks have the potential to revolutionize the way we approach wildfire prevention and response in California?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -362,6 +563,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should universities be held accountable for addressing allegations of antisemitism on campus, and how effective are current policies in achieving this goal?
 
 Category: Domestic
@@ -369,6 +571,15 @@ Q2. What factors contribute to the Trump administration's suspension of grant fu
 
 Category: Domestic
 Q3. How can universities balance their commitment to free speech with the need to protect Jewish and Israeli students from discrimination on campus, and what role should the government play in this process?
+=======
+Q1. To what extent does the Trump administration's suspension of grant funding affect the academic freedom and research opportunities at UCLA?
+
+Category: Domestic
+Q2. What are the implications of the Trump administration's accusations against UCLA for the future of academic institutions in the United States?
+
+Category: Domestic
+Q3. How effective are the solutions proposed by Gov. Gavin Newsom to address the grant freezes at UCLA, and what impact might they have on the university's research programs?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -379,6 +590,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. How effective are sponge city models in mitigating flood risk in urban areas?
 
 Category: International
@@ -386,6 +598,15 @@ Q2. What factors contribute to the success of sponge city projects, and how can 
 
 Category: Comparative
 Q3. Compare and contrast the benefits and drawbacks of implementing sponge city models in developed versus developing countries.
+=======
+Q1. What are the implications of implementing a sponge city model in urban water management for cities like Los Angeles?
+
+Category: International
+Q2. To what extent does the success of the "Fish Tail" sponge park in Nanchang, China demonstrate the effectiveness of this urban water management approach?
+
+Category: Domestic
+Q3. What factors should be considered when implementing a sponge city model in cities like Los Angeles to ensure its success and minimize potential challenges?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -399,10 +620,17 @@ Category: Domestic
 Q1. What are the implications of the elite's "conspicuous resilience" in disaster recovery efforts?
 
 Category: Domestic
+<<<<<<< HEAD
 Q2. How can we ensure that disaster recovery efforts prioritize the needs of working-class survivors over privileged groups?
 
 Category: Domestic
 Q3. What role should public policy play in addressing the financial precariousness of disaster recovery for low-income communities?
+=======
+Q2. How does the financial precariousness of tariffs, immigration policies, and skyrocketing insurance costs impact the ability of the poor and middle class to recover from disasters?
+
+Category: Domestic
+Q3. What are the potential solutions for addressing the disparities in disaster recovery efforts between the wealthy and the vulnerable populations?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -413,6 +641,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does the myth of the Golden State contribute to the current state of Los Angeles?
 
 Category: Domestic
@@ -420,6 +649,15 @@ Q2. How effective are community and culture initiatives in addressing the challe
 
 Category: Domestic
 Q3. What factors have led to the persistent denial of the present in Los Angeles, and how can this be addressed moving forward?
+=======
+Q1. To what extent does the article suggest that the Golden State myth has been perpetuated by those who have moved there?
+
+Category: Domestic
+Q2. What are the implications of the article's assertion that Los Angeles grew beyond its means?
+
+Category: Domestic
+Q3. How effective is the article in arguing for a new vision for Los Angeles, and what factors contribute to this effectiveness?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -430,6 +668,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic Policy Analysis
+<<<<<<< HEAD
 Q1. What factors have contributed to the stagnation of progress towards ending homelessness in Los Angeles, and what can be done to address these challenges?
 
 Category: International Comparison
@@ -437,6 +676,15 @@ Q2. How does California's approach to reducing greenhouse gas emissions compare 
 
 Category: Future Implications
 Q3. Given the current state of funding and political support for key projects in Los Angeles, what are the potential long-term implications for the city's reputation and its ability to host major events like the World Cup and Olympics?
+=======
+Q1. To what extent should the Trump administration's elimination of funding for key projects and challenges to the state's authority impact the progress of California's plan to eliminate the sale of gas-powered vehicles after 2035?
+
+Category: International Comparison
+Q2. How effective are the strategies employed by Los Angeles in its efforts to reduce reliance on fossil fuels and gas-powered vehicles compared to other major cities worldwide, and what lessons can be learned from these comparisons?
+
+Category: Stakeholder Impact Analysis
+Q3. To what extent do the proposed Sylmar fire station and the DTLA 2040 goals reflect the needs and priorities of various stakeholders in Los Angeles, including residents, businesses, and government agencies, and how can these stakeholders work together to ensure successful implementation?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -447,6 +695,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should local governments implement waste management programs similar to the one in Petaluma?
 
 Category: Domestic
@@ -454,6 +703,15 @@ Q2. How effective are community-driven initiatives, like the one in Petaluma, in
 
 Category: Domestic
 Q3. What factors contribute to the success of community-driven waste management programs, as seen in the example of Petaluma?
+=======
+Q1. What are the implications of California's waste management landscape for the future of sustainable living?
+
+Category: Domestic
+Q2. How effective are community-driven initiatives in promoting waste reduction and recycling programs at a broader scale?
+
+Category: Domestic
+Q3. To what extent do corporate sponsors influence the success of waste reduction and recycling programs in California cities?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -464,6 +722,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of implementing wearable technology for fire defense in urban areas?
 
 Category: Domestic
@@ -471,6 +730,15 @@ Q2. How effective is mass timber as a solution to fire-resistant home building, 
 
 Category: Domestic
 Q3. To what extent should governments prioritize fire suppression versus fire preparedness and mitigation in their urban planning policies?
+=======
+Q1. What are the implications of implementing wearable technologies for fire defense in urban areas?
+
+Category: Domestic
+Q2. How effective are mass timber panels as a solution to mitigate wildfire damage on existing homes in California?
+
+Category: Domestic
+Q3. To what extent should governments prioritize fire suppression versus fire preparedness and mitigation measures for future disasters in California?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -480,10 +748,21 @@ Info: News Article from
 ================================================================================
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
+<<<<<<< HEAD
 CATEGORY: Domestic
 Q1. To what extent should cities prioritize planting climate-adaptive trees over palm trees in urban landscapes?
 Q2. What are the implications of replacing palm trees with native species for local wildlife and urban forestry?
 Q3. How effective are public-private partnerships in promoting the transition from palm trees to more climate-resilient tree species in Los Angeles?
+=======
+Category: Domestic/International
+Q1. To what extent should we prioritize planting climate-adaptive trees over palm trees in urban forests?
+
+Category: Domestic/International
+Q2. What are the implications of replacing palm trees with native trees for local wildlife and urban infrastructure?
+
+Category: Domestic/International
+Q3. How effective are public-private partnerships in promoting the planting of climate-adaptive trees in urban forests, and what role should government play in this process?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -495,9 +774,15 @@ NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Q1. To what extent does the portrayal of Los Angeles in disaster films reflect societal anxieties about change and progress?
 
+<<<<<<< HEAD
 Q2. How effective are filmmakers in using the destruction of Los Angeles as a metaphor for societal issues, and what implications does this have for viewers?
 
 Q3. What role do landmarks play in the appeal of disaster films set in Los Angeles, and how do these films contribute to the city's cultural identity?
+=======
+Q2. What factors contribute to the continued popularity of films depicting the destruction of Los Angeles, and how do these films impact public perceptions of the city?
+
+Q3. How effective are disaster films in raising awareness about the importance of disaster preparedness and structural safety, and what role do they play in shaping public policy related to natural disasters?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -511,10 +796,17 @@ Category: Domestic
 Q1. To what extent does the lack of official cooperation in California contribute to the state's lower number of ICE arrests compared to Republican states?
 
 Category: Domestic
+<<<<<<< HEAD
 Q2. How effective are "287(g) agreements" in increasing ICE arrests, and what implications do they have for immigration enforcement in red and blue states?
 
 Category: Domestic
 Q3. What factors contribute to the higher number of ICE arrests in Texas compared to California, and how might these differences impact the overall effectiveness of the administration's deportation campaign?
+=======
+Q2. What are the implications of the Trump administration's decision to deploy troops to Los Angeles for immigration enforcement, and how effective do you think this strategy will be in achieving their goals?
+
+Category: Domestic
+Q3. How does the use of 287(g) agreements by local law enforcement impact the overall effectiveness of ICE's enforcement efforts, and what are the potential drawbacks of such cooperation?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -525,6 +817,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should the City Council of Los Angeles be held responsible for the escalating conflict between labor unions and business groups over the minimum wage hike?
 
 Category: Domestic
@@ -532,6 +825,15 @@ Q2. What are the implications of the proposed ballot measures by Unite Here Loca
 
 Category: Domestic
 Q3. How effective is the current negotiation process between labor unions and business groups in resolving their differences over the minimum wage hike, and what steps could be taken to facilitate a more productive dialogue?
+=======
+Q1. To what extent does the minimum wage hike for hotel employees and LAX skycaps disrupt the city's economy?
+
+Category: Domestic
+Q2. What factors contribute to the protracted fight between labor unions and business groups over the minimum wage hike?
+
+Category: Domestic
+Q3. How effective are ballot measures as a means of resolving disputes between organized labor and the business community?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -542,6 +844,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of California's plastic legislation on reducing the amount of single-use plastic sold and distributed in the state, and how effective do you think it will be?
 
 Category: Domestic
@@ -549,6 +852,15 @@ Q2. How can community-organized composting and educational outreach campaigns ef
 
 Category: Domestic
 Q3. What are the challenges faced by waste experts and community organizers in implementing zero-waste policies in California, and how can these challenges be overcome to achieve a more sustainable future?
+=======
+Q1. To what extent does the state's landmark plastic legislation effectively address the issue of plastic waste, and how can it be improved?
+
+Category: Domestic
+Q2. What are the implications of California's "zero waste" plan for the future of waste management in the state, and how will it impact local communities?
+
+Category: Domestic
+Q3. How effective are community-organized composting initiatives in reducing plastic waste, and what role do they play in promoting a circular economy?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -559,6 +871,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does the legacy of past sheriffs influence current Sheriff Robert Luna's approach to preserving and imparting the importance of the Los Angeles County Sheriff's Department?
 
 Category: Domestic
@@ -566,6 +879,15 @@ Q2. How effective are the efforts of Sheriff Robert Luna to rehabilitate addicts
 
 Category: Domestic
 Q3. What factors contribute to the dangerous nature of the job for Los Angeles County Sheriff's Department deputies, and how have these risks evolved over time?
+=======
+Q1. To what extent does the history of the Los Angeles County Sheriff's Department influence its current operations and public perception?
+
+Category: Domestic
+Q2. How effective are efforts to preserve and promote the history of the Los Angeles County Sheriff's Department in addressing issues such as line-of-duty deaths and community relations?
+
+Category: Domestic
+Q3. What factors contribute to the ongoing popularity of vintage uniforms, old department cars, and events like the Sheriff's Championship Rodeo among members of the Los Angeles County Sheriff's Department and the public?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -576,6 +898,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does the history of El Aliso reflect the current state of immigration in Los Angeles?
 
 Category: Domestic
@@ -583,6 +906,15 @@ Q2. What are the implications of the actions taken by the Kizh-Gabrieleño Band 
 
 Category: Domestic
 Q3. How effective is the current approach to immigration in Los Angeles in addressing the concerns of those who have scraped for themselves and fear losing their hard-earned gains in an instant?
+=======
+Q1. To what extent does Los Angeles' history as a Mexican village influence its current identity and actions?
+
+Category: Domestic
+Q2. What factors contribute to the fear of losing one's hard-earned success among Angelenos, and how can this be addressed?
+
+Category: Domestic
+Q3. How effective are community efforts in addressing the needs of those affected by disasters like the Eaton fire, and what improvements could be made?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -593,6 +925,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of the growing trend towards sustainable housing on the future of urban planning in the United States?
 
 Category: Domestic
@@ -600,6 +933,15 @@ Q2. How effective would a holistic approach be in addressing both climate challe
 
 Category: Domestic
 Q3. To what extent should local governments prioritize smart density, walkable neighborhoods, and fewer single-family housing developments in order to create sustainable cities for the future?
+=======
+Q1. What are the implications of the growing trend towards sustainable housing in urban areas, and how might this impact the future of city planning?
+
+Category: Domestic
+Q2. To what extent should local governments prioritize walkable neighborhoods over single-family housing developments in their efforts to create sustainable cities?
+
+Category: Domestic
+Q3. How effective are current public transit systems in addressing the need for more sustainable and equitable urban living, and what role do hyper-local initiatives play in this effort?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -610,6 +952,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic Water Policy
+<<<<<<< HEAD
 Q1. How effective are recycled water sources in mitigating Southern California's water shortage, and what are the long-term implications of relying on them?
 
 Category: Domestic Water Policy
@@ -617,6 +960,15 @@ Q2. What are the potential drawbacks and risks associated with building new wate
 
 Category: Domestic Water Policy
 Q3. To what extent should Southern California prioritize investing in local water sources versus relying on imported water from other regions, and what factors should inform this decision-making process?
+=======
+Q1. What are the implications of Southern California's projected water shortages for its future economic growth and sustainability?
+
+Category: International Water Policy
+Q2. How effective are Cape Town's lessons on diversification of supply in addressing global drought crises, and what can be learned from their experience?
+
+Category: Climate Change and Water Management
+Q3. What factors should Southern California water agencies consider when deciding between investing in local water sources versus infrastructure to store and transport water from other parts of the state, and how will these decisions impact their long-term resilience to climate change?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -627,6 +979,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should emergency planners prioritize the use of fire refuges in high-risk communities, and how effective are they in providing short-term protection during evacuation scenarios?
 
 Category: Domestic
@@ -634,6 +987,15 @@ Q2. What factors contribute to the growing size of wildfires in California, and 
 
 Category: Domestic
 Q3. How effective are current fire safety standards for buildings, and what role should the scientific community play in determining when research is conclusive enough to create official standards through organizations such as the National Fire Protection Association?
+=======
+Q1. To what extent should emergency planners prioritize the use of fire refuges in high-risk communities, and how effective are they in providing short-term protection during wildfires?
+
+Category: Domestic
+Q2. What factors contribute to the growing size of wildfires in California, and how can the scientific community determine when research is conclusive enough to create official standards for fire shelters through organizations such as the National Fire Protection Assn.?
+
+Category: Domestic
+Q3. How effective are fire-resistant buildings in providing long-term protection during wildfires, and what role do they play in ensuring the safety of residents in high-risk areas with limited escape routes?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -644,6 +1006,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of California's managed retreat proposal for the future of coastal communities?
 
 Category: Domestic
@@ -651,6 +1014,15 @@ Q2. How effective is California's approach to managing sea level rise and protec
 
 Category: Domestic
 Q3. To what extent should communities prioritize preserving their natural landscapes over adapting to climate change?
+=======
+Q1. How effective are managed retreat proposals in addressing the impacts of climate change on coastal communities?
+
+Category: Domestic
+Q2. What factors should be considered when planning for a reimagined coast that can support California into the next century?
+
+Category: Domestic
+Q3. To what extent do managed retreat proposals require communities to make sacrifices in order to adapt to climate change?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -661,6 +1033,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of the rapid pace of change in Los Angeles for its future development?
 
 Category: Domestic
@@ -668,6 +1041,15 @@ Q2. To what extent does the history of the Los Angeles Aqueduct influence the ci
 
 Category: International
 Q3. How effective are predictions about the future of Los Angeles in shaping public opinion and policy decisions, and what factors contribute to their accuracy or inaccuracy?
+=======
+Q1. How effective are predictions about the future of Los Angeles when they rely on current trends and extrapolations?
+
+Category: International
+Q2. What factors contribute to the rapid pace of change in Los Angeles, making long-term predictions about its future challenging?
+
+Category: Comparative
+Q3. To what extent do predictions about the future of Los Angeles reflect broader societal attitudes towards urbanization and sustainability?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -677,6 +1059,7 @@ Info: News Article from
 ================================================================================
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
+<<<<<<< HEAD
 Category: Domestic
 Q1. To what extent does the rise of AI companies in San Francisco impact the city's economy?
 
@@ -685,6 +1068,16 @@ Q2. What are the implications of AI-generated content on the future of media and
 
 Category: Domestic
 Q3. How effective are AI chatbots in providing mental health support to individuals, and what factors contribute to their success or failure?
+=======
+Category: Domestic/International
+Q1. What are the implications of AI's rise on San Francisco's economy and society?
+
+Category: Domestic/International
+Q2. How effective is AI in addressing San Francisco's challenges, such as office vacancy rates and recovery from the pandemic?
+
+Category: Domestic/International
+Q3. What are the potential risks and ethical concerns associated with AI's increasing presence in San Francisco's tech industry?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -695,6 +1088,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. What are the implications of the rezoning plan for Los Angeles' housing stock by 2050?
 
 Category: Domestic
@@ -702,6 +1096,15 @@ Q2. How effective is the state-mandated housing goal in addressing California's 
 
 Category: Domestic
 Q3. What role should local governments play in shaping the future of housing in Los Angeles, and how can they balance their interests with those of homeowners and developers?
+=======
+Q1. What are the implications of the Los Angeles City Council's rezoning plan for the city's housing stock in the next 25 years?
+
+Category: Domestic
+Q2. How effective is the state-mandated housing goal in promoting affordable housing in California, and what role should local governments play in achieving this goal?
+
+Category: Domestic
+Q3. What are the unintended consequences of Measure ULA, a tax on property sales above $5 million in Los Angeles, and how can it be used effectively to solve the city's housing woes?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -711,6 +1114,7 @@ Info: News Article from
 ================================================================================
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
+<<<<<<< HEAD
 Category: Domestic
 Q1. To what extent does the article suggest that Los Angeles was intentionally created as a utopia, and how effective have been its efforts to maintain this image?
 
@@ -719,6 +1123,13 @@ Q2. What factors contributed to the rapid growth of Los Angeles in the early 20t
 
 Category: Domestic
 Q3. How has the promotion of Southern California's Mediterranean climate impacted the city's economy, culture, and social dynamics over time?
+=======
+Q1. How effective is the promotion of Southern California's Mediterranean climate in attracting new residents, and what are its implications for the region's economy and society?
+
+Q2. To what extent does Los Angeles' rapid growth and development since 1888 reflect the city's ability to adapt to changing circumstances and needs, and how has this adaptability shaped its identity and future prospects?
+
+Q3. What factors have contributed to the rise of Los Angeles as a dominant metropolis in California, and what challenges does the city face in maintaining its position as a center of economic and cultural power in the 21st century?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -729,6 +1140,7 @@ Info: BBC News Article (cpv0jv30mllo)
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does the "one in, one out" pilot with France effectively address the issue of illegal immigration through the English Channel?
 
 Category: International
@@ -736,6 +1148,15 @@ Q2. What are the implications of the UK's "one in, one out" pilot with France fo
 
 Category: Domestic
 Q3. How effective are the new plans to prosecute people advertising illegal Channel crossings online in deterring migrants from attempting to enter the UK through this route?
+=======
+Q1. To what extent does the "one in, one out" pilot with France effectively address the issue of illegal migration through the English Channel?
+
+Category: International
+Q2. What are the implications of the new plans to prosecute people advertising illegal Channel crossings online for up to five years' imprisonment on the future of such activities?
+
+Category: Domestic/International
+Q3. How effective is the joint operation between the UK and France in combating organised immigration crime, and what can be done to improve it further?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -746,6 +1167,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent does the media contribute to the normalization of unhealthy dieting habits among young people?
 
 Category: International
@@ -753,6 +1175,15 @@ Q2. How effective are social media platforms in promoting body positivity and re
 
 Category: Domestic
 Q3. What factors influence an individual's ability to embrace a more balanced approach to recovery from an eating disorder, and how can these be addressed through policy and community support?
+=======
+Q1. What are the implications of the rise of social media hashtags promoting eating disorders on individuals' recovery from these disorders?
+
+Category: International
+Q2. To what extent do cultural differences impact the effectiveness of different approaches to eating disorder recovery?
+
+Category: Domestic
+Q3. How effective are restorative narratives in helping individuals make meaningful pathways forward after experiencing trauma or illness, and what role can they play in promoting body positivity?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -763,6 +1194,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: International
+<<<<<<< HEAD
 Q1. To what extent should European nations prioritize the involvement of Ukraine in achieving lasting peace in the conflict?
 
 Category: Domestic
@@ -770,6 +1202,15 @@ Q2. What are the implications of President Trump's willingness to grant Putin a 
 
 Category: International
 Q3. How effective are diplomatic efforts, including sanctions and security guarantees, in bringing an end to the conflict between Russia and Ukraine?
+=======
+Q1. To what extent should European nations prioritize their support for Ukraine over their relationship with Russia?
+
+Category: International
+Q2. What are the implications of a potential one-on-one meeting between Trump and Putin on the ongoing conflict in Ukraine?
+
+Category: International
+Q3. How effective are economic sanctions as a tool to pressure Russia into negotiating a peaceful resolution to the conflict in Ukraine?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -780,6 +1221,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should the Department of Labor re-examine its guidance on alternative assets like private market investments within 401(k) plans?
 
 Category: Domestic
@@ -787,6 +1229,15 @@ Q2. What are the implications of allowing higher fees for private assets than ty
 
 Category: Domestic
 Q3. How effective would it be for employers to decide to offer private market assets like private equity and private credit, things like that in the 401(k) plans, and what factors should they consider before making such a decision?
+=======
+Q1. To what extent should private market investments be included in 401(k) plans, and how effective would this be in promoting diversification for everyday retirement savers?
+
+Category: Domestic
+Q2. What are the implications of allowing private market investments like private equity and private credit in 401(k) plans for employers and their liability?
+
+Category: Domestic
+Q3. How effective would limiting exposure to 5% to 10% of the portfolio be in mitigating unnecessary risk, misaligned expectations, and potential losses for investors drawn into alternative investments without proper guardrails?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -797,13 +1248,22 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should private assets be included in professionally managed asset allocation funds within 401(k) plans, and how would this impact retirement savers' long-term investments?
+=======
+Q1. To what extent should private assets be included in professionally managed asset allocation funds in 401(k) plans, and how might this impact retirement savers' long-term investment prospects?
+>>>>>>> origin/main
 
 Category: Domestic
 Q2. What are the implications of allowing private equity firms to introduce new products into defined contribution plans, and how might this affect plan sponsors' fiduciary responsibilities?
 
+<<<<<<< HEAD
 Category: International
 Q3. How effective is the Labor Department's information letter in promoting the inclusion of private assets in professionally managed asset allocation funds within 401(k) plans, and what are some potential risks associated with such investments?
+=======
+Category: Domestic
+Q3. How effective would be a concerted effort by plan sponsors and retirement investors to educate themselves about private assets in 401(k) plans, and what factors should be considered when evaluating the potential benefits of including such investments in retirement portfolios?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -814,6 +1274,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent should the media be held responsible for the rise of vaccine skepticism in the United States?
 
 Category: Domestic
@@ -821,6 +1282,15 @@ Q2. What factors contribute to the growing influence of anti-vaxxers within the 
 
 Category: Domestic
 Q3. How effective are political leaders like Kennedy in addressing vaccine skepticism, and what strategies might they employ to increase public trust in vaccines?
+=======
+Q1. To what extent does the anti-vaxxer rhetoric of Fox News influence public opinion on vaccination?
+
+Category: International
+Q2. What are the implications of the Trump administration's fast-tracking of mRNA vaccine development for Covid-19 through Operation Warp Speed?
+
+Category: Domestic
+Q3. How effective is Fox News in promoting misleading and false claims about safe, effective vaccines with the potential to save their viewers' lives?
+>>>>>>> origin/main
 
 ================================================================================
 
@@ -831,6 +1301,7 @@ Info: News Article from
 NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
 ================================================================================
 Category: Domestic
+<<<<<<< HEAD
 Q1. To what extent do DHS street arrests of individuals with no criminal history or removal order violate civil liberties and the rule of law?
 
 Category: Domestic
@@ -855,6 +1326,15 @@ Q2. What are the implications of the Epstein case for global efforts to combat h
 
 Category: Comparative
 Q3. How do the psychological effects of exploitation experienced by Epstein victims compare to those of victims of other forms of abuse or trauma?
+=======
+Q1. To what extent does the DHS's targeting of individuals based on their skin color and physical appearance violate the U.S. Constitution?
+
+Category: Domestic
+Q2. What are the implications of the DHS's street arrests of people with no criminal history or removal order for the future of immigration policy in the United States?
+
+Category: Domestic
+Q3. How effective are the DHS's tactics for identifying and removing undocumented immigrants, considering the spike in street arrests since the White House ordered agents to stop developing target lists and just "go out on the streets"?
+>>>>>>> origin/main
 
 ================================================================================
 
