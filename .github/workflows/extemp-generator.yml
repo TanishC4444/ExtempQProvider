@@ -6,7 +6,7 @@ on:
   workflow_dispatch: # Allow manual triggering
   push:
     branches: [ main ]
-    paths: [ 'extemp_generator.py' ] # Only run when the extemp script changes
+    paths: [ '*.py' ] # Run when any Python script changes
 
 jobs:
   generate-extemp:
@@ -115,7 +115,24 @@ jobs:
       if: steps.check-articles.outputs.has_articles == 'true'
       run: |
         echo "Starting Extemp generation at $(date)"
-        timeout 340m python3 extemp_generator.py || {
+        
+        # Find the correct Python script file
+        if [ -f "extemp_generator.py" ]; then
+          SCRIPT_FILE="extemp_generator.py"
+        elif [ -f "extemp.py" ]; then
+          SCRIPT_FILE="extemp.py"
+        else
+          # Find any Python file that contains extemp-related functions
+          SCRIPT_FILE=$(find . -name "*.py" -exec grep -l "generate_extemp_questions\|NSDA.*Extemp" {} \; | head -1)
+          if [ -z "$SCRIPT_FILE" ]; then
+            echo "❌ No extemp generator script found!"
+            ls -la *.py 2>/dev/null || echo "No Python files found"
+            exit 1
+          fi
+        fi
+        
+        echo "📄 Using script file: $SCRIPT_FILE"
+        timeout 340m python3 "$SCRIPT_FILE" || {
           echo "Extemp generation completed/timed out at $(date)"
         }
         echo "Extemp generation completed at $(date)"
