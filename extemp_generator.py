@@ -300,7 +300,7 @@ def main():
         return
     
     # Process articles in batches
-    batch_size = min(2, len(all_articles))  # Smaller batches for more complex processing
+    batch_size = min(200, len(all_articles))  # Smaller batches for more complex processing
     articles_to_process = all_articles[:batch_size]
     remaining_articles = all_articles[batch_size:]
     
