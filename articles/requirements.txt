@@ -1,0 +1,4 @@
+feedparser==6.0.10
+newspaper3k==0.2.8
+llama-cpp-python==0.2.11
+huggingface-hub==0.17.3
