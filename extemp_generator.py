@@ -292,7 +292,7 @@ def main():
         return
     
     # Process articles one by one and remove them immediately after processing
-    batch_size = min(5, len(all_articles))  # Process in smaller batches for better reliability
+    batch_size = min(200, len(all_articles))  # Process in smaller batches for better reliability
     print(f"📋 Processing {batch_size} articles in this batch...")
     
     successful_count = 0
