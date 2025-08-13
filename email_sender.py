@@ -176,14 +176,14 @@ class ExtempEmailSender:
             print(f"⚠️ Error writing to sent log: {e}")
     
     def format_email_content(self, question_blocks):
-        """Format question blocks into beautiful HTML email content"""
+        """Format question blocks into beautiful HTML email content with modern styling"""
         
         # Pre-calculate values that contain backslashes to avoid f-string issues
         current_date = datetime.now().strftime('%B %d, %Y')
         total_questions = sum(len(re.findall(r'^Q\d+\.', block['content'], re.MULTILINE)) for block in question_blocks)
         footer_timestamp = datetime.now().strftime('%A, %B %d, %Y at %I:%M %p UTC')
         
-        # HTML Email Template
+        # Modern HTML Email Template
         html_content = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -192,65 +192,125 @@ class ExtempEmailSender:
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NSDA Extemporaneous Speaking Questions</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+            
+            * {{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }}
+            
             body {{
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
                 line-height: 1.6;
-                color: #333;
-                max-width: 800px;
-                margin: 0 auto;
+                color: #1a1a1a;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+                min-height: 100vh;
                 padding: 20px;
-                background-color: #f8f9fa;
+            }}
+            
+            .email-container {{
+                max-width: 900px;
+                margin: 0 auto;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                border-radius: 24px;
+                overflow: hidden;
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.2);
             }}
             
             .header {{
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
+                position: relative;
+                overflow: hidden;
+                padding: 60px 40px;
                 text-align: center;
-                padding: 30px;
-                border-radius: 10px 10px 0 0;
-                margin-bottom: 0;
+            }}
+            
+            .header::before {{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+                opacity: 0.3;
+            }}
+            
+            .header-content {{
+                position: relative;
+                z-index: 2;
             }}
             
             .header h1 {{
-                margin: 0;
-                font-size: 2.2em;
-                font-weight: 300;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                font-size: clamp(2.5rem, 5vw, 3.5rem);
+                font-weight: 700;
+                background: linear-gradient(135deg, #ffffff, #f0f8ff);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 16px;
+                letter-spacing: -0.02em;
             }}
             
             .header .subtitle {{
-                margin: 10px 0 0 0;
-                font-size: 1.1em;
-                opacity: 0.9;
-                font-weight: 300;
+                font-size: 1.2rem;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 400;
+                letter-spacing: 0.01em;
             }}
             
-            .container {{
-                background: white;
-                border-radius: 0 0 10px 10px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-                overflow: hidden;
+            .stats-section {{
+                padding: 32px 40px;
+                background: rgba(248, 250, 252, 0.8);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(226, 232, 240, 0.5);
             }}
             
-            .stats-bar {{
-                background: #f8f9fa;
-                padding: 15px 30px;
-                border-bottom: 2px solid #e9ecef;
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                gap: 15px;
+            .stats-grid {{
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 24px;
+                max-width: 600px;
+                margin: 0 auto;
             }}
             
-            .stat-item {{
-                background: white;
-                padding: 10px 15px;
-                border-radius: 25px;
-                border: 2px solid #667eea;
-                color: #667eea;
-                font-weight: bold;
-                font-size: 0.9em;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            .stat-card {{
+                background: linear-gradient(135deg, #ffffff, #f8fafc);
+                padding: 24px;
+                border-radius: 16px;
+                text-align: center;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(226, 232, 240, 0.5);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }}
+            
+            .stat-card:hover {{
+                transform: translateY(-4px);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            }}
+            
+            .stat-icon {{
+                font-size: 2rem;
+                margin-bottom: 12px;
+                display: block;
+            }}
+            
+            .stat-value {{
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #1e293b;
+                margin-bottom: 4px;
+            }}
+            
+            .stat-label {{
+                font-size: 0.875rem;
+                color: #64748b;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
             }}
             
             .content {{
@@ -259,8 +319,8 @@ class ExtempEmailSender:
             
             .question-block {{
                 margin: 0;
-                border-bottom: 3px solid #f1f3f4;
-                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }}
             
             .question-block:last-child {{
@@ -268,158 +328,325 @@ class ExtempEmailSender:
             }}
             
             .question-block:hover {{
-                background-color: #fafbfc;
+                background: rgba(248, 250, 252, 0.5);
             }}
             
             .article-header {{
-                background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-                color: white;
-                padding: 20px 30px;
-                border-left: 5px solid #0066cc;
+                background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+                padding: 32px 40px;
+                position: relative;
+                overflow: hidden;
+            }}
+            
+            .article-header::before {{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+                transform: translateX(-100%);
+                transition: transform 0.6s;
+            }}
+            
+            .article-header:hover::before {{
+                transform: translateX(100%);
             }}
             
             .article-link {{
                 color: white;
                 text-decoration: none;
-                font-weight: 500;
-                font-size: 1.05em;
-                word-break: break-all;
+                font-weight: 600;
+                font-size: 1.1rem;
                 display: block;
-                margin-bottom: 5px;
+                margin-bottom: 8px;
+                word-break: break-word;
+                position: relative;
+                z-index: 2;
+                transition: all 0.3s ease;
             }}
             
             .article-link:hover {{
-                text-decoration: underline;
-                color: #e6f3ff;
+                color: #e0f2fe;
+                transform: translateX(4px);
             }}
             
             .article-info {{
-                font-size: 0.9em;
-                opacity: 0.9;
-                font-style: italic;
+                font-size: 0.9rem;
+                color: rgba(255, 255, 255, 0.8);
+                font-weight: 500;
+                position: relative;
+                z-index: 2;
             }}
             
             .questions-section {{
-                padding: 25px 30px;
+                padding: 48px 40px;
             }}
             
             .questions-title {{
                 text-align: center;
-                color: #2c3e50;
-                font-size: 1.3em;
-                font-weight: 600;
-                margin: 0 0 25px 0;
-                padding-bottom: 10px;
-                border-bottom: 2px solid #3498db;
+                color: #1e293b;
+                font-size: 1.75rem;
+                font-weight: 700;
+                margin-bottom: 40px;
                 position: relative;
+                letter-spacing: -0.01em;
             }}
             
             .questions-title::after {{
                 content: '';
                 position: absolute;
-                bottom: -2px;
+                bottom: -12px;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 60px;
-                height: 2px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                width: 80px;
+                height: 4px;
+                background: linear-gradient(90deg, #667eea, #764ba2);
+                border-radius: 2px;
+            }}
+            
+            .questions-grid {{
+                display: grid;
+                gap: 24px;
             }}
             
             .question-item {{
-                margin-bottom: 20px;
-                padding: 18px;
-                background: #f8f9ff;
-                border-radius: 8px;
-                border-left: 4px solid #667eea;
-                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+                background: #ffffff;
+                border-radius: 16px;
+                padding: 28px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+                border: 1px solid rgba(226, 232, 240, 0.5);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                overflow: hidden;
+            }}
+            
+            .question-item::before {{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 100%;
                 transition: all 0.3s ease;
             }}
             
             .question-item:hover {{
-                transform: translateY(-2px);
-                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+                transform: translateY(-6px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
             }}
             
             .question-category {{
-                font-size: 0.85em;
-                font-weight: 600;
+                display: inline-block;
+                font-size: 0.75rem;
+                font-weight: 700;
                 text-transform: uppercase;
-                color: #667eea;
-                margin-bottom: 8px;
-                letter-spacing: 1px;
+                letter-spacing: 0.1em;
+                padding: 6px 12px;
+                border-radius: 20px;
+                margin-bottom: 16px;
+                transition: all 0.3s ease;
             }}
-            
-            .domestic {{ border-left-color: #e74c3c; }}
-            .domestic .question-category {{ color: #e74c3c; }}
-            .domestic {{ background: #fdf2f2; }}
-            
-            .international {{ border-left-color: #3498db; }}
-            .international .question-category {{ color: #3498db; }}
-            .international {{ background: #f0f8ff; }}
-            
-            .mixed {{ border-left-color: #f39c12; }}
-            .mixed .question-category {{ color: #f39c12; }}
-            .mixed {{ background: #fefcf0; }}
             
             .question-text {{
-                font-size: 1.05em;
-                line-height: 1.6;
-                color: #2c3e50;
+                font-size: 1.125rem;
+                line-height: 1.7;
+                color: #334155;
                 margin: 0;
                 font-weight: 500;
+                letter-spacing: -0.01em;
             }}
             
-            .question-number {{
-                font-weight: bold;
-                color: #667eea;
+            /* Category-specific styling */
+            .domestic::before {{
+                background: linear-gradient(135deg, #ef4444, #dc2626);
+            }}
+            
+            .domestic .question-category {{
+                background: linear-gradient(135deg, #fef2f2, #fee2e2);
+                color: #dc2626;
+                border: 1px solid #fecaca;
+            }}
+            
+            .international::before {{
+                background: linear-gradient(135deg, #3b82f6, #2563eb);
+            }}
+            
+            .international .question-category {{
+                background: linear-gradient(135deg, #eff6ff, #dbeafe);
+                color: #2563eb;
+                border: 1px solid #93c5fd;
+            }}
+            
+            .mixed::before {{
+                background: linear-gradient(135deg, #f59e0b, #d97706);
+            }}
+            
+            .mixed .question-category {{
+                background: linear-gradient(135deg, #fffbeb, #fef3c7);
+                color: #d97706;
+                border: 1px solid #fcd34d;
             }}
             
             .footer {{
-                background: #2c3e50;
+                background: linear-gradient(135deg, #1e293b, #334155);
                 color: white;
                 text-align: center;
-                padding: 20px;
-                margin-top: 30px;
-                border-radius: 10px;
+                padding: 48px 40px;
+                position: relative;
+                overflow: hidden;
+            }}
+            
+            .footer::before {{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(circle at 30% 20%, rgba(102, 126, 234, 0.1), transparent 50%),
+                            radial-gradient(circle at 70% 80%, rgba(118, 75, 162, 0.1), transparent 50%);
+            }}
+            
+            .footer-content {{
+                position: relative;
+                z-index: 2;
+            }}
+            
+            .footer h3 {{
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 8px;
+                background: linear-gradient(135deg, #ffffff, #e2e8f0);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             }}
             
             .footer p {{
-                margin: 5px 0;
-                font-size: 0.9em;
+                margin: 8px 0;
+                color: #cbd5e1;
+                font-weight: 400;
             }}
             
             .timestamp {{
-                color: #95a5a6;
-                font-size: 0.8em;
+                color: #94a3b8;
+                font-size: 0.875rem;
                 font-style: italic;
+                margin-top: 16px;
             }}
             
-            @media (max-width: 600px) {{
-                body {{ padding: 10px; }}
-                .header, .questions-section {{ padding: 20px 15px; }}
-                .article-header {{ padding: 15px 20px; }}
-                .stats-bar {{ 
-                    flex-direction: column; 
-                    align-items: center;
-                    gap: 10px;
+            .footer-note {{
+                margin-top: 32px;
+                padding-top: 24px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                font-size: 0.875rem;
+                line-height: 1.6;
+                color: #94a3b8;
+            }}
+            
+            /* Responsive Design */
+            @media (max-width: 768px) {{
+                body {{ padding: 12px; }}
+                
+                .email-container {{
+                    border-radius: 16px;
                 }}
-                .stat-item {{ font-size: 0.8em; }}
-                .question-item {{ padding: 15px; }}
-                .header h1 {{ font-size: 1.8em; }}
+                
+                .header {{
+                    padding: 40px 24px;
+                }}
+                
+                .header h1 {{
+                    font-size: 2.25rem;
+                }}
+                
+                .stats-section {{
+                    padding: 24px;
+                }}
+                
+                .stats-grid {{
+                    grid-template-columns: 1fr;
+                    gap: 16px;
+                }}
+                
+                .stat-card {{
+                    padding: 20px;
+                }}
+                
+                .article-header,
+                .questions-section,
+                .footer {{
+                    padding: 32px 24px;
+                }}
+                
+                .question-item {{
+                    padding: 24px;
+                }}
+                
+                .questions-title {{
+                    font-size: 1.5rem;
+                    margin-bottom: 32px;
+                }}
+            }}
+            
+            @media (max-width: 480px) {{
+                .header {{
+                    padding: 32px 20px;
+                }}
+                
+                .header h1 {{
+                    font-size: 2rem;
+                }}
+                
+                .header .subtitle {{
+                    font-size: 1rem;
+                }}
+                
+                .article-header,
+                .questions-section,
+                .footer {{
+                    padding: 24px 20px;
+                }}
+                
+                .question-item {{
+                    padding: 20px;
+                }}
+                
+                .question-text {{
+                    font-size: 1rem;
+                }}
             }}
         </style>
     </head>
     <body>
-        <div class="header">
-            <h1>🎯 NSDA Extemporaneous Speaking Questions</h1>
-            <p class="subtitle">Daily Practice Questions for Competitive Speech & Debate</p>
-        </div>
-        
-        <div class="container">
-            <div class="stats-bar">
-                <div class="stat-item">📰 {len(question_blocks)} Articles</div>
-                <div class="stat-item">❓ {total_questions} Questions</div>
-                <div class="stat-item">📅 {current_date}</div>
+        <div class="email-container">
+            <div class="header">
+                <div class="header-content">
+                    <h1>🎯 NSDA Extemporaneous Speaking</h1>
+                    <p class="subtitle">Daily Practice Questions for Competitive Speech & Debate</p>
+                </div>
+            </div>
+            
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-icon">📰</span>
+                        <div class="stat-value">{len(question_blocks)}</div>
+                        <div class="stat-label">Articles</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">❓</span>
+                        <div class="stat-value">{total_questions}</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">📅</span>
+                        <div class="stat-value">{current_date.split()[1]}</div>
+                        <div class="stat-label">{current_date.split()[0]} {current_date.split()[2]}</div>
+                    </div>
+                </div>
             </div>
             
             <div class="content">
@@ -480,6 +707,7 @@ class ExtempEmailSender:
                 
                 <div class="questions-section">
                     <h3 class="questions-title">Analytical Questions</h3>
+                    <div class="questions-grid">
     """
             
             # Add questions
@@ -494,6 +722,7 @@ class ExtempEmailSender:
     """
             
             html_content += """
+                    </div>
                 </div>
             </div>
     """
@@ -501,16 +730,18 @@ class ExtempEmailSender:
         # Add footer
         html_content += f"""
             </div>
-        </div>
-        
-        <div class="footer">
-            <p><strong>🏆 National Speech & Debate Association</strong></p>
-            <p>Extemporaneous Speaking Practice Questions</p>
-            <p class="timestamp">Generated on {footer_timestamp}</p>
-            <p style="margin-top: 15px; font-size: 0.8em; opacity: 0.8;">
-                💡 <em>These questions are designed to encourage analysis, evaluation, and argumentation.<br>
-                Each question should be answerable with a 7-minute speech using current events and multiple sources.</em>
-            </p>
+            
+            <div class="footer">
+                <div class="footer-content">
+                    <h3>🏆 National Speech & Debate Association</h3>
+                    <p>Extemporaneous Speaking Practice Questions</p>
+                    <p class="timestamp">Generated on {footer_timestamp}</p>
+                    <div class="footer-note">
+                        💡 <em>These questions are designed to encourage analysis, evaluation, and argumentation.<br>
+                        Each question should be answerable with a 7-minute speech using current events and multiple sources.</em>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
     </html>
