@@ -1,0 +1,53 @@
+name: Send NSDA Extemp Questions
+on:
+  # Run daily at 8 AM UTC (adjust timezone as needed)
+  schedule:
+    - cron: '0 8 * * *'
+  
+  # Allow manual triggering
+  workflow_dispatch:
+  
+  # Run when extemp_questions.txt is updated
+  push:
+    paths:
+      - 'extemp_questions.txt'
+
+jobs:
+  send-questions:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install python-dotenv
+    
+    - name: Check if files exist
+      run: |
+        if [ ! -f "extemp_questions.txt" ]; then
+          echo "❌ extemp_questions.txt not found"
+          exit 1
+        fi
+        if [ ! -f ".env" ]; then
+          echo "❌ .env file not found"
+          exit 1
+        fi
+        echo "✅ Found required files"
+    
+    - name: Send extemp questions
+      run: python email_sender.py
+    
+    - name: Upload sent log artifact
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: sent-questions-log
+        path: sent_questions_log.txt

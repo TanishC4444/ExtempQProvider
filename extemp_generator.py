@@ -31,6 +31,7 @@ STRICT REQUIREMENTS FOR NSDA EXTEMP QUESTIONS:
 - Use question stems that promote critical thinking: "Should...", "What are the implications of...", "How effective...", "To what extent...", "What factors...", etc.
 - Questions must be relevant to current domestic or international issues
 - Avoid questions that can be answered with simple yes/no or single facts
+- Don't to multiple parts or sub-questions in a single question, no "ands" or "ors"
 
 QUESTION TYPES TO FOCUS ON:
 - Policy analysis and evaluation
