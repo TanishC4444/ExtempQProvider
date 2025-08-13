@@ -1,8 +1,8 @@
 name: Send NSDA Extemp Questions
 on:
-  # Run daily at 8 AM UTC (adjust timezone as needed)
+  # Run every 6 hours (12 AM, 6 AM, 12 PM, 6 PM UTC)
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 */6 * * *'
   
   # Allow manual triggering
   workflow_dispatch:
