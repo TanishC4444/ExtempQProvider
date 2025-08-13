@@ -3,6 +3,7 @@ import re
 from llama_cpp import Llama
 from urllib.parse import urlparse
 import time
+import shutil
 
 # Initialize your LLaMA model with optimized settings
 MODEL_PATH = os.getenv('MODEL_PATH', '/Users/tanishchauhan/Desktop/CEUIL_AI copy/mistral-7b-instruct-v0.1.Q4_K_M.gguf')
@@ -116,60 +117,47 @@ def read_articles(filename):
     print(f"Successfully parsed {len(articles)} articles from {filename}")
     return articles
 
-def write_remaining_articles(filename, remaining_articles):
-    """Write remaining articles back to the input file with better error handling"""
+def write_articles_to_file(filename, articles):
+    """Write articles to file with proper formatting"""
     try:
-        # Create backup first
-        backup_filename = filename + '.backup'
-        if os.path.exists(filename):
-            import shutil
-            shutil.copy2(filename, backup_filename)
-            print(f"✓ Created backup: {backup_filename}")
-        
-        # Write the remaining articles
         with open(filename, 'w', encoding='utf-8') as f:
-            if remaining_articles:
-                for i, (link, article) in enumerate(remaining_articles):
+            if articles:
+                for i, (link, article) in enumerate(articles):
                     f.write(f"{link}\n")
                     f.write(f"Article: {article}\n")
-                    if i < len(remaining_articles) - 1:  # Add separator between articles
+                    if i < len(articles) - 1:  # Add separator between articles
                         f.write("\n")
-                f.flush()  # Ensure data is written to disk
-                os.fsync(f.fileno())  # Force write to disk
-        
-        # Verify the write was successful
-        if remaining_articles:
-            verification = read_articles(filename)
-            if len(verification) != len(remaining_articles):
-                print(f"⚠️ Warning: Expected {len(remaining_articles)} articles but found {len(verification)} after write")
-                # Restore from backup if verification fails
-                if os.path.exists(backup_filename):
-                    import shutil
-                    shutil.copy2(backup_filename, filename)
-                    print(f"❌ Write verification failed, restored from backup")
-                    return False
-            else:
-                print(f"✅ Write verification successful: {len(remaining_articles)} articles")
-        else:
-            print(f"✅ Successfully cleared input file - no articles remaining")
-        
-        # Clean up backup after successful write
-        if os.path.exists(backup_filename):
-            os.remove(backup_filename)
-        
+            # Force write to disk
+            f.flush()
+            os.fsync(f.fileno())
         return True
-        
     except Exception as e:
-        print(f"❌ Error writing to input file: {e}")
-        # Try to restore from backup
+        print(f"Error writing to file {filename}: {e}")
+        return False
+
+def create_backup(filename):
+    """Create backup of the input file"""
+    try:
         backup_filename = filename + '.backup'
-        if os.path.exists(backup_filename):
-            try:
-                import shutil
-                shutil.copy2(backup_filename, filename)
-                print(f"✅ Restored from backup after write error")
-            except:
-                print(f"❌ Failed to restore from backup")
+        if os.path.exists(filename):
+            shutil.copy2(filename, backup_filename)
+            print(f"✓ Created backup: {backup_filename}")
+            return backup_filename
+        return None
+    except Exception as e:
+        print(f"Error creating backup: {e}")
+        return None
+
+def restore_from_backup(filename, backup_filename):
+    """Restore from backup file"""
+    try:
+        if backup_filename and os.path.exists(backup_filename):
+            shutil.copy2(backup_filename, filename)
+            print(f"✅ Restored from backup: {backup_filename}")
+            return True
+        return False
+    except Exception as e:
+        print(f"Error restoring from backup: {e}")
         return False
 
 def chunk_text(text, max_words=800):
@@ -291,6 +279,9 @@ def main():
     if os.path.exists(input_file):
         print(f"📄 Input file size: {os.path.getsize(input_file)} bytes")
     
+    # Create backup before processing
+    backup_filename = create_backup(input_file)
+    
     # Read all articles at start
     all_articles = read_articles(input_file)
     print(f"Found {len(all_articles)} total articles to process")
@@ -299,34 +290,23 @@ def main():
         print("No articles found in the input file!")
         return
     
-    # Process articles in batches
-    batch_size = min(200, len(all_articles))  # Smaller batches for more complex processing
-    articles_to_process = all_articles[:batch_size]
-    remaining_articles = all_articles[batch_size:]
-    
-    print(f"📋 Processing {len(articles_to_process)} articles in this batch...")
-    print(f"📋 Will keep {len(remaining_articles)} articles for next run...")
-    
-    # Show first few links being processed for debugging
-    print("\n🔍 First few articles being processed:")
-    for i, (link, _) in enumerate(articles_to_process[:3]):
-        print(f"  {i+1}. {link}")
-    
-    if remaining_articles:
-        print("\n🔍 First few articles remaining for next run:")
-        for i, (link, _) in enumerate(remaining_articles[:3]):
-            print(f"  {i+1}. {link}")
+    # Process articles one by one and remove them immediately after processing
+    batch_size = min(50, len(all_articles))  # Process in smaller batches for better reliability
+    print(f"📋 Processing {batch_size} articles in this batch...")
     
     successful_count = 0
+    processed_articles = []  # Keep track of successfully processed articles
     start_time = time.time()
     
     # Open extemp questions file in append mode
     with open('extemp_questions.txt', 'a', encoding='utf-8') as out:
-        for i, (link, article) in enumerate(articles_to_process):
-            print(f"\n--- Processing article {i+1}/{len(articles_to_process)} ---")
+        for i in range(min(batch_size, len(all_articles))):
+            link, article = all_articles[i]
+            
+            print(f"\n--- Processing article {i+1}/{batch_size} ---")
             elapsed = time.time() - start_time
             avg_time = elapsed / (i + 1) if i > 0 else 0
-            est_remaining = avg_time * (len(articles_to_process) - i - 1)
+            est_remaining = avg_time * (batch_size - i - 1)
             
             print(f"Link: {link}")
             print(f"Article length: {len(article.split())} words")
@@ -336,6 +316,8 @@ def main():
             # Skip articles that are too short for quality extemp questions
             if len(article.split()) < 150:
                 print("Article too short for quality extemp questions, skipping...")
+                # Still count as processed so it gets removed from the file
+                processed_articles.append((link, article))
                 continue
 
             # Extract headline from URL
@@ -361,57 +343,71 @@ def main():
                 
             out.write("="*80 + "\n\n")
             out.flush()  # Ensure content is written immediately
+            
+            # Mark this article as processed (regardless of success/failure)
+            processed_articles.append((link, article))
+            
+            # Update the input file to remove processed articles after every few articles
+            if (i + 1) % 10 == 0 or i == batch_size - 1:  # Update every 10 articles or at the end
+                remaining_articles = all_articles[len(processed_articles):]
+                print(f"\n📝 Updating input file (removing {len(processed_articles)} processed articles)...")
+                
+                # Try to write the updated file
+                max_retries = 3
+                update_success = False
+                
+                for attempt in range(max_retries):
+                    if write_articles_to_file(input_file, remaining_articles):
+                        # Verify the write
+                        verification_articles = read_articles(input_file)
+                        if len(verification_articles) == len(remaining_articles):
+                            print(f"✅ Successfully updated input file: {len(remaining_articles)} articles remaining")
+                            update_success = True
+                            break
+                        else:
+                            print(f"⚠️ Write verification failed: expected {len(remaining_articles)}, found {len(verification_articles)}")
+                    
+                    if attempt < max_retries - 1:
+                        print(f"⚠️ Update attempt {attempt + 1} failed, retrying in 1 second...")
+                        time.sleep(1)
+                
+                if not update_success:
+                    print("❌ Failed to update input file after all attempts")
+                    if backup_filename:
+                        restore_from_backup(input_file, backup_filename)
+                    return
     
     total_time = time.time() - start_time
-    print(f"\n✅ Batch complete: {successful_count}/{len(articles_to_process)} articles processed in {total_time/60:.1f} minutes")
+    print(f"\n✅ Batch complete: {successful_count}/{len(processed_articles)} articles processed successfully in {total_time/60:.1f} minutes")
     
-    # Write remaining articles back with verification
-    print(f"\n📝 Updating input file:")
+    # Final verification
+    print(f"\n🔍 Final verification...")
+    final_articles = read_articles(input_file)
+    expected_remaining = len(all_articles) - len(processed_articles)
+    actual_remaining = len(final_articles)
+    
+    print(f"✅ Final status:")
     print(f"   - Original articles: {len(all_articles)}")
-    print(f"   - Processed articles: {len(articles_to_process)}")
-    print(f"   - Remaining articles: {len(remaining_articles)}")
+    print(f"   - Processed articles: {len(processed_articles)}")
+    print(f"   - Expected remaining: {expected_remaining}")
+    print(f"   - Actual remaining: {actual_remaining}")
+    print(f"   - Match: {'✅ YES' if expected_remaining == actual_remaining else '❌ NO'}")
     
-    # Attempt to write remaining articles with retry logic
-    max_retries = 3
-    for attempt in range(max_retries):
-        print(f"\n📝 Write attempt {attempt + 1}/{max_retries}")
-        
-        if write_remaining_articles(input_file, remaining_articles):
-            print("✅ Successfully updated input file")
-            break
-        else:
-            if attempt < max_retries - 1:
-                print("⚠️ Write failed, retrying in 2 seconds...")
-                time.sleep(2)
-            else:
-                print("❌ Failed to update input file after all attempts")
-                # Create a fallback file
-                fallback_file = input_file + '.remaining'
-                try:
-                    write_remaining_articles(fallback_file, remaining_articles)
-                    print(f"💾 Created fallback file: {fallback_file}")
-                except:
-                    print("❌ Even fallback write failed!")
-                return
-    
-    # Verify the write operation worked
-    print(f"\n🔍 Verifying file update...")
-    verification_articles = read_articles(input_file)
-    expected_count = len(remaining_articles)
-    actual_count = len(verification_articles)
-    
-    print(f"✅ Verification complete:")
-    print(f"   - Expected articles: {expected_count}")
-    print(f"   - Actual articles: {actual_count}")
-    print(f"   - Match: {'✅ YES' if expected_count == actual_count else '❌ NO'}")
+    # Clean up backup if everything went well
+    if backup_filename and expected_remaining == actual_remaining:
+        try:
+            os.remove(backup_filename)
+            print(f"🗑️ Cleaned up backup file")
+        except:
+            print(f"⚠️ Could not clean up backup file: {backup_filename}")
     
     # Show final status
     print(f"\n📊 FINAL STATUS:")
-    print(f"📊 Articles processed this run: {len(articles_to_process)}")
+    print(f"📊 Articles processed this run: {len(processed_articles)}")
     print(f"📊 Articles with successful extemp questions: {successful_count}")
-    print(f"📊 Remaining articles for next run: {actual_count}")
+    print(f"📊 Remaining articles for next run: {actual_remaining}")
     
-    if actual_count > 0:
+    if actual_remaining > 0:
         print("💡 Next run will process more articles")
     else:
         print("🎉 All articles have been processed!")

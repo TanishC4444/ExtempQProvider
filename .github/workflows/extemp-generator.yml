@@ -111,6 +111,12 @@ jobs:
         echo "🔍 First few links to be processed:"
         grep "^Link: " articles/news_articles.txt | head -5
         
+    - name: Create backup of articles file
+      if: steps.check-articles.outputs.has_articles == 'true'
+      run: |
+        cp articles/news_articles.txt articles/news_articles.txt.pre_processing_backup
+        echo "✅ Created backup of articles file before processing"
+        
     - name: Run Extemp generator
       if: steps.check-articles.outputs.has_articles == 'true'
       run: |
@@ -132,13 +138,52 @@ jobs:
         fi
         
         echo "📄 Using script file: $SCRIPT_FILE"
+        
+        # Store initial article count
+        INITIAL_COUNT=$(grep -c "^Link: " articles/news_articles.txt || echo "0")
+        echo "📊 Starting with $INITIAL_COUNT articles"
+        
+        # Run the generator with timeout
         timeout 340m python3 "$SCRIPT_FILE" || {
           echo "Extemp generation completed/timed out at $(date)"
         }
+        
+        # Check how many articles remain after processing
+        FINAL_COUNT=$(grep -c "^Link: " articles/news_articles.txt 2>/dev/null || echo "0")
+        PROCESSED_COUNT=$((INITIAL_COUNT - FINAL_COUNT))
+        
+        echo "📊 Processing complete:"
+        echo "   - Started with: $INITIAL_COUNT articles"
+        echo "   - Remaining: $FINAL_COUNT articles" 
+        echo "   - Processed: $PROCESSED_COUNT articles"
+        
         echo "Extemp generation completed at $(date)"
       env:
         MODEL_PATH: ./models/mistral-7b-instruct-v0.1.Q4_K_M.gguf
         INPUT_FILE: ./articles/news_articles.txt
+        
+    - name: Verify article removal
+      if: steps.check-articles.outputs.has_articles == 'true'
+      run: |
+        echo "=== VERIFYING ARTICLE REMOVAL ==="
+        
+        INITIAL_COUNT=$(grep -c "^Link: " articles/news_articles.txt.pre_processing_backup || echo "0")
+        FINAL_COUNT=$(grep -c "^Link: " articles/news_articles.txt || echo "0")
+        PROCESSED_COUNT=$((INITIAL_COUNT - FINAL_COUNT))
+        
+        echo "📊 Article processing verification:"
+        echo "   - Articles before processing: $INITIAL_COUNT"
+        echo "   - Articles after processing: $FINAL_COUNT"
+        echo "   - Articles processed and removed: $PROCESSED_COUNT"
+        
+        if [ "$PROCESSED_COUNT" -gt "0" ]; then
+          echo "✅ Articles were successfully processed and removed"
+        else
+          echo "⚠️ No articles were removed - this might indicate a problem"
+        fi
+        
+        # Clean up backup
+        rm -f articles/news_articles.txt.pre_processing_backup
         
     - name: Check generated output
       if: steps.check-articles.outputs.has_articles == 'true'
@@ -176,89 +221,6 @@ jobs:
         else
           echo "📰 No articles file remaining"
         fi
-        
-    - name: Create conflict resolution script
-      run: |
-        cat > resolve_conflicts.py << 'SCRIPT_END'
-        #!/usr/bin/env python3
-        import os
-        import sys
-        import re
-        
-        def read_articles(filename):
-            if not os.path.exists(filename):
-                return []
-                
-            try:
-                with open(filename, 'r', encoding='utf-8') as f:
-                    content = f.read()
-            except Exception as e:
-                print(f"Error reading file {filename}: {e}")
-                return []
-
-            if not content.strip():
-                return []
-
-            articles = []
-            # Normalize line endings first
-            content = content.replace('\r\n', '\n').replace('\r', '\n')
-            
-            # Split by double newline, but be more flexible
-            article_blocks = re.split(r'\n\s*\n+', content.strip())
-            
-            for block in article_blocks:
-                block = block.strip()
-                if not block:
-                    continue
-                    
-                lines = [line.strip() for line in block.split('\n') if line.strip()]
-                
-                current_link = None
-                article_lines = []
-                in_article = False
-                
-                for line in lines:
-                    if line.startswith("Link: "):
-                        current_link = line
-                        in_article = False
-                        article_lines = []
-                    elif line.startswith("Article: "):
-                        # Start collecting article text
-                        article_content = line[len("Article: "):].strip()
-                        if article_content:  # If there's content on the same line
-                            article_lines = [article_content]
-                        else:
-                            article_lines = []
-                        in_article = True
-                    elif in_article and current_link:
-                        # Continue collecting article text
-                        article_lines.append(line)
-                
-                # Join all article lines and add to articles list
-                if current_link and article_lines:
-                    current_article = ' '.join(article_lines).strip()
-                    if current_article and len(current_article) > 50:  # Only add substantial articles
-                        articles.append((current_link, current_article))
-            
-            return articles
-        
-        def write_remaining_articles(filename, remaining_articles):
-            with open(filename, 'w', encoding='utf-8') as f:
-                for i, (link, article) in enumerate(remaining_articles):
-                    f.write(f"{link}\n")
-                    f.write(f"Article: {article}\n")
-                    if i < len(remaining_articles) - 1:
-                        f.write("\n")
-        
-        input_file = sys.argv[1] if len(sys.argv) > 1 else 'articles/news_articles.txt'
-        batch_size = int(sys.argv[2]) if len(sys.argv) > 2 else 200
-        
-        all_articles = read_articles(input_file)
-        remaining_articles = all_articles[batch_size:]
-        write_remaining_articles(input_file, remaining_articles)
-        print(f"Kept {len(remaining_articles)} articles, removed first {batch_size}")
-        SCRIPT_END
-        chmod +x resolve_conflicts.py
 
     - name: Commit and push changes
       if: steps.check-articles.outputs.has_articles == 'true'
@@ -305,12 +267,36 @@ jobs:
                 if git status --porcelain | grep -q "articles/news_articles.txt"; then
                   echo "📰 Resolving conflict in news_articles.txt"
                   
-                  # Use the version from origin (has new articles) and re-apply our logic
-                  git checkout origin/main -- articles/news_articles.txt
+                  # For articles file conflicts, we need to be careful
+                  # Our version has removed processed articles, remote might have new articles
+                  # We want to keep the new articles from remote but not re-add processed ones
                   
-                  # Re-apply our processing logic to remove processed articles
-                  echo "Re-applying article removals..."
-                  python3 resolve_conflicts.py articles/news_articles.txt 200
+                  # Get our version (processed articles removed)
+                  git show HEAD:articles/news_articles.txt > our_articles.txt 2>/dev/null || touch our_articles.txt
+                  
+                  # Get remote version (might have new articles)
+                  git show origin/main:articles/news_articles.txt > remote_articles.txt 2>/dev/null || touch remote_articles.txt
+                  
+                  # Count articles in each version
+                  OUR_COUNT=$(grep -c "^Link: " our_articles.txt 2>/dev/null || echo "0")
+                  REMOTE_COUNT=$(grep -c "^Link: " remote_articles.txt 2>/dev/null || echo "0")
+                  
+                  echo "📊 Conflict resolution:"
+                  echo "   - Our version: $OUR_COUNT articles"
+                  echo "   - Remote version: $REMOTE_COUNT articles"
+                  
+                  # If remote has more articles, use remote version (new articles were added)
+                  # If our version has fewer articles, use our version (we processed some)
+                  if [ "$REMOTE_COUNT" -gt "$OUR_COUNT" ]; then
+                    echo "📰 Using remote version (has more articles - new articles were added)"
+                    git checkout origin/main -- articles/news_articles.txt
+                  else
+                    echo "📰 Using our version (articles were processed and removed)"
+                    git checkout HEAD -- articles/news_articles.txt
+                  fi
+                  
+                  # Clean up temporary files
+                  rm -f our_articles.txt remote_articles.txt
                   
                   # Mark as resolved
                   git add articles/news_articles.txt
@@ -318,6 +304,7 @@ jobs:
                   echo "📄 Resolving other conflicts automatically"
                   # For extemp_questions.txt conflicts, prefer our version (has new questions)
                   if git status --porcelain | grep -q "extemp_questions.txt"; then
+                    git checkout HEAD -- extemp_questions.txt
                     git add extemp_questions.txt
                   fi
                 fi
@@ -327,9 +314,15 @@ jobs:
               fi
               
               # Update commit message with current counts
-              current_sets=$(grep -c "NSDA EXTEMPORANEOUS SPEAKING QUESTIONS" extemp_questions.txt || echo "0")
-              current_questions=$(grep -c "^Q[0-9]\." extemp_questions.txt || echo "0")
-              current_remaining=$(grep -c "^Link: " articles/news_articles.txt || echo "0")
+              if [ -f "extemp_questions.txt" ]; then
+                current_sets=$(grep -c "NSDA EXTEMPORANEOUS SPEAKING QUESTIONS" extemp_questions.txt || echo "0")
+                current_questions=$(grep -c "^Q[0-9]\." extemp_questions.txt || echo "0")
+              else
+                current_sets="0"
+                current_questions="0"
+              fi
+              current_remaining=$(grep -c "^Link: " articles/news_articles.txt 2>/dev/null || echo "0")
+              
               git commit --amend -m "🎯 Extemp Generation Run #${GITHUB_RUN_NUMBER:-0} - $current_sets sets ($current_questions questions), $current_remaining articles remaining [$(date '+%Y-%m-%d %H:%M UTC')]" || true
               
               if [ $i -eq 5 ]; then
@@ -343,6 +336,38 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
+    - name: Validate article processing
+      if: steps.check-articles.outputs.has_articles == 'true'
+      run: |
+        echo "=== FINAL VALIDATION ==="
+        
+        # Check if articles were actually processed and removed
+        CURRENT_COUNT=$(grep -c "^Link: " articles/news_articles.txt 2>/dev/null || echo "0")
+        INITIAL_COUNT="${{ steps.check-articles.outputs.article_count }}"
+        
+        echo "📊 Processing validation:"
+        echo "   - Initial article count: $INITIAL_COUNT"
+        echo "   - Current article count: $CURRENT_COUNT"
+        echo "   - Articles processed: $((INITIAL_COUNT - CURRENT_COUNT))"
+        
+        if [ "$CURRENT_COUNT" -lt "$INITIAL_COUNT" ]; then
+          echo "✅ Articles were successfully processed and removed from the file"
+        else
+          echo "⚠️ No articles were removed - this might indicate a processing issue"
+        fi
+        
+        # Validate extemp questions were generated
+        if [ -f "extemp_questions.txt" ]; then
+          QUESTION_COUNT=$(grep -c "^Q[0-9]\." extemp_questions.txt || echo "0")
+          if [ "$QUESTION_COUNT" -gt "0" ]; then
+            echo "✅ Extemp questions were successfully generated"
+          else
+            echo "⚠️ No extemp questions found in output file"
+          fi
+        else
+          echo "⚠️ No extemp questions file found"
+        fi
+        
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       if: always()
@@ -351,6 +376,7 @@ jobs:
         path: |
           articles/
           extemp_questions.txt
+          *.backup
         retention-days: 7
         
     - name: Run summary
@@ -361,16 +387,16 @@ jobs:
         echo "📅 Run: ${{ github.run_number }}"
         echo "⏰ Completed: $(date)"
         
-        if [ -f "extemp_questions.txt" ]; then
-          total_sets=$(grep -c "NSDA EXTEMPORANEOUS SPEAKING QUESTIONS" extemp_questions.txt || echo "0")
-          total_questions=$(grep -c "^Q[0-9]\." extemp_questions.txt || echo "0")
-          echo "✅ Total question sets: $total_sets"
-          echo "🎯 Total individual questions: $total_questions"
-        fi
-        
+        # Article processing summary
         if [ -f "articles/news_articles.txt" ]; then
-          remaining=$(grep -c "^Link: " articles/news_articles.txt || echo "0")
-          echo "📰 Articles remaining: $remaining"
+          remaining=$(grep -c "^Link: " articles/news_articles.txt 2>/dev/null || echo "0")
+          initial="${{ steps.check-articles.outputs.article_count }}"
+          processed=$((initial - remaining))
+          
+          echo "📰 Article processing:"
+          echo "   - Started with: $initial articles"
+          echo "   - Processed: $processed articles" 
+          echo "   - Remaining: $remaining articles"
           
           if [ "$remaining" -gt "0" ]; then
             echo "💡 Next run will process more articles"
@@ -379,8 +405,31 @@ jobs:
           fi
         fi
         
+        # Question generation summary
+        if [ -f "extemp_questions.txt" ]; then
+          total_sets=$(grep -c "NSDA EXTEMPORANEOUS SPEAKING QUESTIONS" extemp_questions.txt || echo "0")
+          total_questions=$(grep -c "^Q[0-9]\." extemp_questions.txt || echo "0")
+          echo "✅ Question generation:"
+          echo "   - Total question sets: $total_sets"
+          echo "   - Total individual questions: $total_questions"
+        fi
+        
+        echo ""
+        echo "🔄 Process verification:"
+        if [ "${{ steps.check-articles.outputs.has_articles }}" = "true" ]; then
+          if [ "$processed" -gt "0" ]; then
+            echo "✅ Articles were successfully processed and removed"
+          else
+            echo "❌ No articles were processed - check for errors"
+          fi
+        else
+          echo "ℹ️ No articles were available for processing"
+        fi
+        
     - name: Clean up large files
       run: |
         # Clean up the model file to save space (it will be cached)
         rm -rf models/
+        # Clean up any backup files older than this run
+        find . -name "*.backup" -type f -delete 2>/dev/null || true
       if: always()
