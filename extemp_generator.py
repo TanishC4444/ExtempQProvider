@@ -23,15 +23,14 @@ llm = Llama(
 PROMPT_TEMPLATE = """Create exactly 3 NSDA Extemporaneous Speaking questions from this news article.
 
 STRICT REQUIREMENTS FOR NSDA EXTEMP QUESTIONS:
-- Questions must encourage ANALYSIS, EVALUATION, and ARGUMENTATION (not just factual recall)
-- Focus on implications, causes, effects, solutions, comparisons, and future predictions
-- Questions should be answerable with a 7-minute speech using this article as ONE source
-- Each question must be clear, specific, and debatable
-- Questions should allow for multiple valid perspectives and arguments
-- Use question stems that promote critical thinking: "Should...", "What are the implications of...", "How effective...", "To what extent...", "What factors...", etc.
-- Questions must be relevant to current domestic or international issues
-- Avoid questions that can be answered with simple yes/no or single facts
-- Don't to multiple parts or sub-questions in a single question, no "ands" or "ors"
+- Must be clear, concise, single-part, and reference specific people, countries, policies, events, or organizations from the article.
+- Encourage analysis, evaluation, or argumentation (not factual recall).
+- Focus on causes, effects, implications, solutions, comparisons, or predictions.
+- Must allow for multiple perspectives.
+- Relevant to current domestic or international issues.
+- Use strong stems: Should…, What are the implications of…, How effective…, To what extent…, What factors….
+- No vague topics, no “and/or,” no multi-part questions.
+- Article should serve as one source for a 7-minute speech.
 
 QUESTION TYPES TO FOCUS ON:
 - Policy analysis and evaluation
@@ -292,7 +291,7 @@ def main():
         return
     
     # Process articles one by one and remove them immediately after processing
-    batch_size = min(200, len(all_articles))  # Process in smaller batches for better reliability
+    batch_size = min(1, len(all_articles))  # Process in smaller batches for better reliability
     print(f"📋 Processing {batch_size} articles in this batch...")
     
     successful_count = 0
