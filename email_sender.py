@@ -55,7 +55,7 @@ class ExtempEmailSender:
         return True
     
     def read_extemp_questions(self):
-        """Read and parse extemp questions from the file"""
+        """Read and parse extemp questions from the file with improved parsing"""
         if not os.path.exists(self.extemp_file):
             print(f"❌ Extemp questions file not found: {self.extemp_file}")
             return []
@@ -71,70 +71,89 @@ class ExtempEmailSender:
             print(f"❌ Extemp questions file is empty")
             return []
         
-        # Parse the content into question blocks
+        # Parse the content into question blocks - improved logic
         question_blocks = []
-        current_block = []
         
-        lines = content.split('\n')
-        in_question_block = False
-        current_link = None
-        current_info = None
+        # Split content by double newlines to get major sections
+        sections = re.split(r'\n\s*\n+', content.strip())
         
-        for line in lines:
-            line = line.strip()
+        current_block = None
+        
+        for section in sections:
+            section = section.strip()
+            if not section:
+                continue
             
-            if line.startswith('Link: '):
-                # Start of a new block
-                if current_block and current_link and current_info:
-                    question_blocks.append({
-                        'link': current_link,
-                        'info': current_info,
-                        'content': '\n'.join(current_block)
-                    })
+            lines = [line.strip() for line in section.split('\n') if line.strip()]
+            
+            for line in lines:
+                # Look for Link: at the start of a line
+                if line.startswith('Link: '):
+                    # Save previous block if it exists and is complete
+                    if current_block and current_block.get('link') and current_block.get('content'):
+                        question_blocks.append(current_block)
+                    
+                    # Start new block
+                    current_block = {
+                        'link': line.strip(),
+                        'info': None,
+                        'content': '',
+                        'content_lines': []
+                    }
                 
-                current_link = line
-                current_info = None
-                current_block = []
-                in_question_block = False
+                # Look for Info: line
+                elif line.startswith('Info: ') and current_block:
+                    current_block['info'] = line.strip()
                 
-            elif line.startswith('Info: '):
-                current_info = line
-                
-            elif line.startswith('='):
-                if 'NSDA EXTEMPORANEOUS SPEAKING QUESTIONS' in ''.join(lines[lines.index(line):lines.index(line)+3]):
-                    in_question_block = True
-                current_block.append(line)
-                
-            elif line.startswith('NSDA EXTEMPORANEOUS SPEAKING QUESTIONS'):
-                in_question_block = True
-                current_block.append(line)
-                
-            elif in_question_block and line:
-                current_block.append(line)
-                
-            elif in_question_block and not line:
-                # Empty line might end the block, but check next lines
-                current_block.append(line)
+                # Collect all other lines as content
+                elif current_block is not None:
+                    current_block['content_lines'].append(line)
         
-        # Add the last block
-        if current_block and current_link and current_info:
-            question_blocks.append({
-                'link': current_link,
-                'info': current_info,
-                'content': '\n'.join(current_block)
-            })
+        # Process the last block
+        if current_block and current_block.get('link'):
+            if current_block['content_lines']:
+                current_block['content'] = '\n'.join(current_block['content_lines'])
+                question_blocks.append(current_block)
         
-        print(f"✅ Parsed {len(question_blocks)} question blocks from {self.extemp_file}")
-        return question_blocks
+        # Clean up blocks - only keep those with substantial content
+        valid_blocks = []
+        for block in question_blocks:
+            # Check if the block has questions (contains Q1., Q2., Q3.)
+            content = block.get('content', '')
+            if re.search(r'Q[1-3]\.', content) and len(content.strip()) > 50:
+                valid_blocks.append(block)
+                print(f"✅ Valid block: {block['link'][:60]}...")
+            else:
+                print(f"⚠️ Skipping incomplete block: {block['link'][:60]}...")
+        
+        print(f"✅ Parsed {len(valid_blocks)} valid question blocks from {self.extemp_file}")
+        return valid_blocks
     
     def read_sent_log(self):
-        """Read the log of already sent questions"""
+        """Read the log of already sent questions with improved format detection"""
         if not os.path.exists(self.sent_log_file):
+            print("📋 No sent log found - all questions will be treated as new")
             return set()
         
         try:
             with open(self.sent_log_file, 'r', encoding='utf-8') as f:
-                sent_links = set(line.strip() for line in f if line.strip())
+                content = f.read().strip()
+            
+            if not content:
+                print("📋 Sent log is empty - all questions will be treated as new")
+                return set()
+            
+            sent_links = set()
+            for line in content.split('\n'):
+                line = line.strip()
+                if line:
+                    # Handle both formats: just the URL or "Link: URL"
+                    if line.startswith('Link: '):
+                        sent_links.add(line)
+                    else:
+                        # If it's just a URL, convert to Link: format for consistency
+                        sent_links.add(f"Link: {line}")
+            
             print(f"📋 Found {len(sent_links)} already sent questions in log")
             return sent_links
         except Exception as e:
@@ -142,12 +161,17 @@ class ExtempEmailSender:
             return set()
     
     def write_sent_log(self, link):
-        """Add a link to the sent log"""
+        """Add a link to the sent log with proper format"""
         try:
+            # Ensure the link is in the correct format
+            if not link.startswith('Link: '):
+                link = f"Link: {link}"
+            
             with open(self.sent_log_file, 'a', encoding='utf-8') as f:
                 f.write(f"{link}\n")
                 f.flush()
                 os.fsync(f.fileno())
+            print(f"📝 Added to sent log: {link[:60]}...")
         except Exception as e:
             print(f"⚠️ Error writing to sent log: {e}")
     
@@ -502,7 +526,8 @@ class ExtempEmailSender:
         
         for i, block in enumerate(question_blocks, 1):
             text_content += f"{block['link']}\n"
-            text_content += f"{block['info']}\n"
+            if block['info']:
+                text_content += f"{block['info']}\n"
             text_content += "=" * 80 + "\n"
             text_content += "NSDA EXTEMPORANEOUS SPEAKING QUESTIONS\n"
             text_content += "=" * 80 + "\n"
@@ -566,7 +591,7 @@ class ExtempEmailSender:
             return False
     
     def process_and_send(self, max_questions_per_email=10):
-        """Main function to process and send unsent questions"""
+        """Main function to process and send unsent questions with improved tracking"""
         try:
             # Validate configuration
             if not self.validate_config():
@@ -580,17 +605,26 @@ class ExtempEmailSender:
                 print("❌ No question blocks found to send")
                 return False
             
-            # Filter out already sent questions
-            new_question_blocks = [
-                block for block in all_question_blocks 
-                if block['link'] not in sent_links
-            ]
+            # Filter out already sent questions with improved matching
+            new_question_blocks = []
+            for block in all_question_blocks:
+                block_link = block['link']
+                
+                # Check if this exact link is in sent_links
+                if block_link not in sent_links:
+                    new_question_blocks.append(block)
+                    print(f"📧 NEW: {block_link[:60]}...")
+                else:
+                    print(f"✅ SENT: {block_link[:60]}...")
             
             if not new_question_blocks:
                 print("📧 No new questions to send - all questions have been sent already")
                 return True
             
-            print(f"📧 Found {len(new_question_blocks)} new question blocks to send")
+            print(f"\n📊 SUMMARY:")
+            print(f"📊 Total question blocks found: {len(all_question_blocks)}")
+            print(f"📊 Already sent: {len(all_question_blocks) - len(new_question_blocks)}")
+            print(f"📊 New to send: {len(new_question_blocks)}")
             
             # Send questions in batches
             questions_to_send = new_question_blocks[:max_questions_per_email]
@@ -613,15 +647,15 @@ class ExtempEmailSender:
             subject = f"🎯 NSDA Extemp Questions - {date_str} ({question_count} articles, {total_individual_questions} questions)"
             
             # Send email
-            print(f"📧 Sending beautiful HTML email with {question_count} question blocks...")
+            print(f"\n📧 Sending beautiful HTML email with {question_count} question blocks...")
             print(f"📧 Subject: {subject}")
             print(f"📧 To: {', '.join(self.recipient_emails)}")
             
             if self.send_email(subject, html_body, text_body):
                 # Mark questions as sent
+                print(f"\n✅ Email sent successfully! Marking questions as sent...")
                 for block in questions_to_send:
                     self.write_sent_log(block['link'])
-                    print(f"✅ Marked as sent: {block['link'][:60]}...")
                 
                 print(f"🎉 Successfully sent {len(questions_to_send)} question blocks!")
                 
@@ -635,6 +669,8 @@ class ExtempEmailSender:
                 
         except Exception as e:
             print(f"❌ Unexpected error: {e}")
+            import traceback
+            traceback.print_exc()
             return False
 
 def create_env_file():
@@ -751,8 +787,8 @@ def test_configuration():
     except Exception as e:
         print(f"⚠️ Error loading .env file: {e}")
     
-    # Check required variables
-    required_vars = ['SENDER_EMAIL', 'SENDER_PASSWORD', 'RECIPIENT_EMAIL']
+    # Check required variables - updated for new RECIPIENT_EMAILS format
+    required_vars = ['SENDER_EMAIL', 'SENDER_PASSWORD']
     missing_vars = []
     
     for var in required_vars:
@@ -765,6 +801,15 @@ def test_configuration():
         else:
             print(f"❌ {var}: Not set")
             missing_vars.append(var)
+    
+    # Check recipient emails (both new and old format)
+    recipient_emails = os.getenv('RECIPIENT_EMAILS', os.getenv('RECIPIENT_EMAIL', ''))
+    if recipient_emails:
+        recipient_list = [email.strip() for email in recipient_emails.split(',')]
+        print(f"✅ RECIPIENT_EMAILS ({len(recipient_list)}): {', '.join(recipient_list)}")
+    else:
+        print(f"❌ RECIPIENT_EMAILS: Not set")
+        missing_vars.append('RECIPIENT_EMAILS')
     
     # Check optional variables
     optional_vars = {
@@ -780,13 +825,55 @@ def test_configuration():
         value = os.getenv(var, default)
         print(f"📝 {var}: {value}")
     
+    # Check if files exist
+    print(f"\nFile checks:")
+    extemp_file = os.getenv('EXTEMP_FILE', 'extemp_questions.txt')
+    sent_log_file = os.getenv('SENT_LOG_FILE', 'sent_questions_log.txt')
+    
+    if os.path.exists(extemp_file):
+        file_size = os.path.getsize(extemp_file)
+        print(f"✅ Extemp file exists: {extemp_file} ({file_size} bytes)")
+        
+        # Quick check of file content
+        try:
+            with open(extemp_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+                link_count = len(re.findall(r'^Link: ', content, re.MULTILINE))
+                print(f"📊 Found {link_count} articles in extemp file")
+        except Exception as e:
+            print(f"⚠️ Could not read extemp file: {e}")
+    else:
+        print(f"❌ Extemp file missing: {extemp_file}")
+    
+    if os.path.exists(sent_log_file):
+        try:
+            with open(sent_log_file, 'r', encoding='utf-8') as f:
+                sent_count = len([line for line in f if line.strip()])
+                print(f"✅ Sent log exists: {sent_log_file} ({sent_count} entries)")
+        except Exception as e:
+            print(f"⚠️ Could not read sent log: {e}")
+    else:
+        print(f"📋 Sent log missing: {sent_log_file} (will be created on first send)")
+    
     if missing_vars:
         print(f"\n❌ Missing required variables: {', '.join(missing_vars)}")
         print(f"Please run: python {os.path.basename(__file__)} --setup")
         return False
     else:
         print(f"\n✅ Configuration looks good!")
-        return True
+        
+        # Test email sender creation
+        try:
+            sender = ExtempEmailSender()
+            if sender.validate_config():
+                print(f"✅ Email sender initialized successfully")
+                return True
+            else:
+                print(f"❌ Email sender validation failed")
+                return False
+        except Exception as e:
+            print(f"❌ Error creating email sender: {e}")
+            return False
 
 def show_help():
     """Show help information"""
@@ -805,16 +892,16 @@ DESCRIPTION:
     Tracks sent questions to avoid duplicates.
     
 REQUIRED ENVIRONMENT VARIABLES:
-    SENDER_EMAIL      Your email address
-    SENDER_PASSWORD   Your email password (use App Password for Gmail)  
-    RECIPIENT_EMAIL   Who receives the questions
+    SENDER_EMAIL        Your email address
+    SENDER_PASSWORD     Your email password (use App Password for Gmail)  
+    RECIPIENT_EMAILS    Who receives the questions (comma-separated for multiple)
 
 OPTIONAL ENVIRONMENT VARIABLES:
-    SMTP_SERVER       SMTP server (default: smtp.gmail.com)
-    SMTP_PORT         SMTP port (default: 587)
+    SMTP_SERVER         SMTP server (default: smtp.gmail.com)
+    SMTP_PORT           SMTP port (default: 587)
     MAX_QUESTIONS_PER_EMAIL  Questions per email (default: 10)
-    EXTEMP_FILE       Questions file path (default: extemp_questions.txt)
-    SENT_LOG_FILE     Sent log file path (default: sent_questions_log.txt)
+    EXTEMP_FILE         Questions file path (default: extemp_questions.txt)
+    SENT_LOG_FILE       Sent log file path (default: sent_questions_log.txt)
 
 GMAIL SETUP:
     1. Enable 2-Factor Authentication
@@ -830,7 +917,15 @@ EXAMPLES:
     python {script_name}
     
     # With environment variables
-    SENDER_EMAIL=me@gmail.com RECIPIENT_EMAIL=friend@email.com python {script_name}
+    SENDER_EMAIL=me@gmail.com RECIPIENT_EMAILS=friend@email.com python {script_name}
+    
+    # Multiple recipients
+    RECIPIENT_EMAILS="person1@email.com, person2@email.com" python {script_name}
+
+TRACKING:
+    The script automatically tracks which questions have been sent in {os.getenv('SENT_LOG_FILE', 'sent_questions_log.txt')}.
+    Only new questions will be sent in each run.
+    Delete the log file to resend all questions.
 """)
 
 def main():
@@ -868,7 +963,7 @@ def main():
     sender = ExtempEmailSender()
     
     # Get max questions per email from environment
-    max_questions = int(os.getenv('MAX_QUESTIONS_PER_EMAIL', '1000'))
+    max_questions = int(os.getenv('MAX_QUESTIONS_PER_EMAIL', '10'))
     
     success = sender.process_and_send(max_questions_per_email=max_questions)
     

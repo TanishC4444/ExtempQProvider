@@ -24,6 +24,7 @@ PROMPT_TEMPLATE = """Create exactly 3 NSDA Extemporaneous Speaking questions fro
 
 STRICT REQUIREMENTS FOR NSDA EXTEMP QUESTIONS:
 - Must be clear, concise, single-part, and reference specific people, countries, policies, events, or organizations from the article.
+- Cannot have the word "and" because the question must be single-part and can't use "," commas to add stuff.
 - Encourage analysis, evaluation, or argumentation (not factual recall).
 - Focus on causes, effects, implications, solutions, comparisons, or predictions.
 - Must allow for multiple perspectives.
@@ -330,7 +331,7 @@ def main():
         return
     
     # Process articles one by one and remove them immediately after processing
-    batch_size = min(1, len(all_articles))  # Process in smaller batches for better reliability
+    batch_size = min(100, len(all_articles))  # Process in smaller batches for better reliability
     print(f"📋 Processing {batch_size} articles in this batch...")
     
     successful_count = 0
