@@ -29,7 +29,7 @@ STRICT REQUIREMENTS FOR NSDA EXTEMP QUESTIONS:
 - Must allow for multiple perspectives.
 - Relevant to current domestic or international issues.
 - Use strong stems: Should…, What are the implications of…, How effective…, To what extent…, What factors….
-- No vague topics, no “and/or,” no multi-part questions.
+- No vague topics, no "and/or," no multi-part questions.
 - Article should serve as one source for a 7-minute speech.
 
 QUESTION TYPES TO FOCUS ON:
@@ -116,6 +116,21 @@ def read_articles(filename):
     
     print(f"Successfully parsed {len(articles)} articles from {filename}")
     return articles
+
+def filter_articles_by_length(articles, min_words=30):
+    """Filter out articles shorter than min_words and return filtered list with stats"""
+    filtered_articles = []
+    removed_count = 0
+    
+    for link, article in articles:
+        word_count = len(article.split())
+        if word_count >= min_words:
+            filtered_articles.append((link, article))
+        else:
+            removed_count += 1
+            print(f"🗑️ Removing short article ({word_count} words): {link[:60]}...")
+    
+    return filtered_articles, removed_count
 
 def write_articles_to_file(filename, articles):
     """Write articles to file with proper formatting"""
@@ -290,6 +305,30 @@ def main():
         print("No articles found in the input file!")
         return
     
+    # Filter out articles shorter than 30 words BEFORE processing
+    print(f"\n🔍 Filtering articles shorter than 30 words...")
+    filtered_articles, removed_count = filter_articles_by_length(all_articles, min_words=30)
+    
+    if removed_count > 0:
+        print(f"\n📝 Updating input file to remove {removed_count} short articles...")
+        if write_articles_to_file(input_file, filtered_articles):
+            print(f"✅ Successfully removed {removed_count} short articles from input file")
+            print(f"📊 Articles remaining for processing: {len(filtered_articles)}")
+        else:
+            print("❌ Failed to update input file")
+            if backup_filename:
+                restore_from_backup(input_file, backup_filename)
+            return
+    else:
+        print("✅ No short articles found to remove")
+    
+    # Use filtered articles for processing
+    all_articles = filtered_articles
+    
+    if not all_articles:
+        print("No articles remaining after filtering!")
+        return
+    
     # Process articles one by one and remove them immediately after processing
     batch_size = min(1, len(all_articles))  # Process in smaller batches for better reliability
     print(f"📋 Processing {batch_size} articles in this batch...")
@@ -314,6 +353,7 @@ def main():
             print(f"Est. remaining: {est_remaining/60:.1f}min")
 
             # Skip articles that are too short for quality extemp questions
+            # Note: This check is now redundant since we pre-filtered, but keeping for safety
             if len(article.split()) < 150:
                 print("Article too short for quality extemp questions, skipping...")
                 # Still count as processed so it gets removed from the file
@@ -387,7 +427,7 @@ def main():
     actual_remaining = len(final_articles)
     
     print(f"✅ Final status:")
-    print(f"   - Original articles: {len(all_articles)}")
+    print(f"   - Original articles (after filtering): {len(all_articles)}")
     print(f"   - Processed articles: {len(processed_articles)}")
     print(f"   - Expected remaining: {expected_remaining}")
     print(f"   - Actual remaining: {actual_remaining}")
@@ -403,6 +443,8 @@ def main():
     
     # Show final status
     print(f"\n📊 FINAL STATUS:")
+    if removed_count > 0:
+        print(f"📊 Short articles removed: {removed_count}")
     print(f"📊 Articles processed this run: {len(processed_articles)}")
     print(f"📊 Articles with successful extemp questions: {successful_count}")
     print(f"📊 Remaining articles for next run: {actual_remaining}")
