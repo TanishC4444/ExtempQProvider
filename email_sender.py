@@ -53,9 +53,8 @@ class ExtempEmailSender:
             print("Run with --setup to configure email settings")
             return False
         return True
-    
     def read_extemp_questions(self):
-        """Read and parse extemp questions from the file with improved parsing"""
+        """Read and parse extemp questions from the file with improved parsing for your format"""
         if not os.path.exists(self.extemp_file):
             print(f"❌ Extemp questions file not found: {self.extemp_file}")
             return []
@@ -71,63 +70,86 @@ class ExtempEmailSender:
             print(f"❌ Extemp questions file is empty")
             return []
         
-        # Parse the content into question blocks - improved logic
+        # Parse the content into question blocks - updated for your format
         question_blocks = []
         
-        # Split content by double newlines to get major sections
-        sections = re.split(r'\n\s*\n+', content.strip())
-        
-        current_block = None
+        # Split content by "Link:" to get each article block
+        sections = re.split(r'\n(?=Link: )', content.strip())
         
         for section in sections:
             section = section.strip()
             if not section:
                 continue
             
-            lines = [line.strip() for line in section.split('\n') if line.strip()]
+            lines = section.split('\n')
+            current_block = None
+            questions = []
             
             for line in lines:
-                # Look for Link: at the start of a line
+                line = line.strip()
+                
+                # Look for Link: at the start
                 if line.startswith('Link: '):
-                    # Save previous block if it exists and is complete
-                    if current_block and current_block.get('link') and current_block.get('content'):
-                        question_blocks.append(current_block)
-                    
                     # Start new block
                     current_block = {
                         'link': line.strip(),
                         'info': None,
                         'content': '',
-                        'content_lines': []
+                        'questions': []
                     }
                 
                 # Look for Info: line
                 elif line.startswith('Info: ') and current_block:
                     current_block['info'] = line.strip()
                 
-                # Collect all other lines as content
-                elif current_block is not None:
-                    current_block['content_lines'].append(line)
+                # Look for Category: and Question pairs
+                elif line.startswith('Category: ') and current_block:
+                    current_category = line.replace('Category:', '').strip()
+                    
+                    # Determine category class for styling
+                    if 'domestic' in current_category.lower() and 'international' not in current_category.lower():
+                        category_class = 'domestic'
+                    elif 'international' in current_category.lower() and 'domestic' not in current_category.lower():
+                        category_class = 'international'
+                    else:
+                        category_class = 'mixed'
+                    
+                    # Store category for next question
+                    current_block['_next_category'] = current_category
+                    current_block['_next_category_class'] = category_class
+                
+                # Look for questions (Q1., Q2., Q3.)
+                elif re.match(r'^Q\d+\.', line) and current_block:
+                    question_text = line
+                    category = current_block.get('_next_category', 'General')
+                    category_class = current_block.get('_next_category_class', 'mixed')
+                    
+                    question_obj = {
+                        'category': category,
+                        'category_class': category_class,
+                        'text': question_text
+                    }
+                    current_block['questions'].append(question_obj)
+            
+            # Process the block if it has valid content
+            if current_block and current_block.get('link') and current_block.get('questions'):
+                # Create content string for compatibility with email formatting
+                content_lines = []
+                for question in current_block['questions']:
+                    content_lines.append(f"Category: {question['category']}")
+                    content_lines.append(question['text'])
+                
+                current_block['content'] = '\n'.join(content_lines)
+                
+                # Only add blocks with substantial content and questions
+                if len(current_block['questions']) > 0 and len(current_block['content']) > 50:
+                    question_blocks.append(current_block)
+                    print(f"✅ Valid block: {current_block['link'][:60]}... ({len(current_block['questions'])} questions)")
+                else:
+                    print(f"⚠️ Skipping incomplete block: {current_block['link'][:60]}...")
         
-        # Process the last block
-        if current_block and current_block.get('link'):
-            if current_block['content_lines']:
-                current_block['content'] = '\n'.join(current_block['content_lines'])
-                question_blocks.append(current_block)
-        
-        # Clean up blocks - only keep those with substantial content
-        valid_blocks = []
-        for block in question_blocks:
-            # Check if the block has questions (contains Q1., Q2., Q3.)
-            content = block.get('content', '')
-            if re.search(r'Q[1-3]\.', content) and len(content.strip()) > 50:
-                valid_blocks.append(block)
-                print(f"✅ Valid block: {block['link'][:60]}...")
-            else:
-                print(f"⚠️ Skipping incomplete block: {block['link'][:60]}...")
-        
-        print(f"✅ Parsed {len(valid_blocks)} valid question blocks from {self.extemp_file}")
-        return valid_blocks
+        print(f"✅ Parsed {len(question_blocks)} valid question blocks from {self.extemp_file}")
+        return question_blocks
     
     def read_sent_log(self):
         """Read the log of already sent questions with improved format detection"""
