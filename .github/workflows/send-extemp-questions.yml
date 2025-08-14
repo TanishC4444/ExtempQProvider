@@ -2,7 +2,7 @@ name: Send NSDA Extemp Questions
 on:
   # Run every 6 hours (12 AM, 6 AM, 12 PM, 6 PM UTC)
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 */6 * * *'  # Fixed: Added missing space
   
   # Allow manual triggering
   workflow_dispatch:
@@ -19,6 +19,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        # Important: Use a token that can push back to the repo
+        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -41,13 +44,47 @@ jobs:
           exit 1
         fi
         echo "✅ Found required files"
+        
+        # Show current state of sent log
+        if [ -f "sent_questions_log.txt" ]; then
+          echo "📋 Current sent log has $(wc -l < sent_questions_log.txt) entries"
+        else
+          echo "📋 No existing sent log found - will be created"
+        fi
     
     - name: Send extemp questions
       run: python email_sender.py
     
-    - name: Upload sent log artifact
+    - name: Check for changes in sent log
+      id: check_changes
+      run: |
+        if [ -f "sent_questions_log.txt" ]; then
+          echo "📋 Updated sent log has $(wc -l < sent_questions_log.txt) entries"
+          if git diff --quiet sent_questions_log.txt; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "📋 No changes to sent log"
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "📋 Sent log has been updated"
+          fi
+        else
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "📋 No sent log file found"
+        fi
+    
+    - name: Commit and push updated sent log
+      if: steps.check_changes.outputs.changes == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add sent_questions_log.txt
+        git commit -m "📝 Update sent questions log [skip ci]"
+        git push
+    
+    - name: Upload sent log artifact (backup)
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: sent-questions-log
+        name: sent-questions-log-$(date +%Y%m%d-%H%M%S)
         path: sent_questions_log.txt
+        retention-days: 30

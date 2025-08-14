@@ -24,7 +24,6 @@ PROMPT_TEMPLATE = """Create exactly 3 NSDA Extemporaneous Speaking questions fro
 
 STRICT REQUIREMENTS FOR NSDA EXTEMP QUESTIONS:
 - Must be clear, concise, single-part, and reference specific people, countries, policies, events, or organizations from the article.
-- Cannot have the word "and" because the question must be single-part and can't use "," commas to add stuff.
 - Encourage analysis, evaluation, or argumentation (not factual recall).
 - Focus on causes, effects, implications, solutions, comparisons, or predictions.
 - Must allow for multiple perspectives.
@@ -32,6 +31,8 @@ STRICT REQUIREMENTS FOR NSDA EXTEMP QUESTIONS:
 - Use strong stems: Should…, What are the implications of…, How effective…, To what extent…, What factors….
 - No vague topics, no "and/or," no multi-part questions.
 - Article should serve as one source for a 7-minute speech.
+
+MOST IMPORTANT: YOU CANNOT HAVE "AND" IN THE QUESTION STEMS. EACH QUESTION MUST BE A SINGLE, CLEAR FOCUS, DONT ADD MULTIPLE PARTS OR "AND/OR".
 
 QUESTION TYPES TO FOCUS ON:
 - Policy analysis and evaluation
