@@ -3,6 +3,7 @@
 NSDA Extemp Questions Email Sender
 Reads extemp questions and sends them via email automatically
 Includes configuration setup and email sending functionality
+Modified to truncate questions at ",and" for shorter, more focused questions
 """
 
 import os
@@ -53,6 +54,31 @@ class ExtempEmailSender:
             print("Run with --setup to configure email settings")
             return False
         return True
+
+    def truncate_question_at_and(self, question_text):
+        """
+        Truncate question at ',and' and add '?' if needed
+        Examples:
+        - "How effective is superchlorination, and what alternatives..." -> "How effective is superchlorination?"
+        - "Why did the market crash, and how will it recover?" -> "Why did the market crash?"
+        - "What is the impact of climate change?" -> "What is the impact of climate change?" (unchanged)
+        """
+        # Look for ",and" (case insensitive) and truncate there
+        match = re.search(r',\s*and\b', question_text, re.IGNORECASE)
+        if match:
+            # Truncate at the comma before "and"
+            truncated = question_text[:match.start()].strip()
+            
+            # Add question mark if it doesn't end with one
+            if not truncated.endswith('?'):
+                truncated += '?'
+                
+            print(f"📝 Truncated question at ',and': {len(question_text)} -> {len(truncated)} chars")
+            return truncated
+        
+        # No ",and" found, return original question
+        return question_text
+
     def read_extemp_questions(self):
         """Read and parse extemp questions from the file with improved parsing for your format"""
         if not os.path.exists(self.extemp_file):
@@ -120,14 +146,18 @@ class ExtempEmailSender:
                 
                 # Look for questions (Q1., Q2., Q3.)
                 elif re.match(r'^Q\d+\.', line) and current_block:
-                    question_text = line
+                    # Apply question truncation here
+                    original_question = line
+                    truncated_question = self.truncate_question_at_and(original_question)
+                    
                     category = current_block.get('_next_category', 'General')
                     category_class = current_block.get('_next_category_class', 'mixed')
                     
                     question_obj = {
                         'category': category,
                         'category_class': category_class,
-                        'text': question_text
+                        'text': truncated_question,  # Use truncated version
+                        'original_text': original_question  # Keep original for reference
                     }
                     current_block['questions'].append(question_obj)
             
@@ -137,18 +167,27 @@ class ExtempEmailSender:
                 content_lines = []
                 for question in current_block['questions']:
                     content_lines.append(f"Category: {question['category']}")
-                    content_lines.append(question['text'])
+                    content_lines.append(question['text'])  # Use truncated text
                 
                 current_block['content'] = '\n'.join(content_lines)
                 
                 # Only add blocks with substantial content and questions
                 if len(current_block['questions']) > 0 and len(current_block['content']) > 50:
                     question_blocks.append(current_block)
-                    print(f"✅ Valid block: {current_block['link'][:60]}... ({len(current_block['questions'])} questions)")
+                    truncated_count = sum(1 for q in current_block['questions'] if q['text'] != q['original_text'])
+                    print(f"✅ Valid block: {current_block['link'][:60]}... ({len(current_block['questions'])} questions, {truncated_count} truncated)")
                 else:
                     print(f"⚠️ Skipping incomplete block: {current_block['link'][:60]}...")
         
+        # Summary of truncation
+        total_questions = sum(len(block['questions']) for block in question_blocks)
+        total_truncated = sum(
+            sum(1 for q in block['questions'] if q['text'] != q['original_text'])
+            for block in question_blocks
+        )
+        
         print(f"✅ Parsed {len(question_blocks)} valid question blocks from {self.extemp_file}")
+        print(f"📝 Total questions: {total_questions}, Truncated: {total_truncated} ({total_truncated/total_questions*100:.1f}% if {total_questions > 0})")
         return question_blocks
     
     def read_sent_log(self):
@@ -395,6 +434,16 @@ class ExtempEmailSender:
                 font-weight: bold;
                 color: #667eea;
             }}
+
+            .truncated-note {{
+                background: #fff3cd;
+                color: #856404;
+                padding: 10px 15px;
+                border-radius: 5px;
+                font-size: 0.85em;
+                margin-bottom: 20px;
+                border-left: 4px solid #ffc107;
+            }}
             
             .footer {{
                 background: #2c3e50;
@@ -445,6 +494,21 @@ class ExtempEmailSender:
             </div>
             
             <div class="content">
+    """
+        
+        # Check if any questions were truncated for the note
+        total_truncated = sum(
+            sum(1 for q in block.get('questions', []) if q.get('text', '') != q.get('original_text', ''))
+            for block in question_blocks
+        )
+        
+        if total_truncated > 0:
+            html_content += f"""
+            <div style="padding: 20px 30px 0;">
+                <div class="truncated-note">
+                    ✂️ <strong>Note:</strong> {total_truncated} questions have been automatically shortened by removing secondary parts after ",and" to keep them focused and concise.
+                </div>
+            </div>
     """
         
         # Add each question block
@@ -544,6 +608,10 @@ class ExtempEmailSender:
         # Fix the text content datetime formatting too
         text_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
         text_content += f"Generated on: {text_timestamp}\n"
+        
+        if total_truncated > 0:
+            text_content += f"Note: {total_truncated} questions were automatically shortened for focus.\n"
+            
         text_content += "=" * 80 + "\n\n"
         
         for i, block in enumerate(question_blocks, 1):
@@ -787,6 +855,12 @@ MAX_QUESTIONS_PER_EMAIL={max_questions}
         print(f"   - Add .env to your .gitignore file")
         print(f"   - Never commit passwords to version control")
         
+        print(f"\n✂️ Question Truncation Feature:")
+        print(f"   - Questions containing ',and' will be automatically shortened")
+        print(f"   - Only the first part before ',and' will be kept")
+        print(f"   - A '?' will be added if the truncated question doesn't end with one")
+        print(f"   - Example: 'How effective is this, and what alternatives...' -> 'How effective is this?'")
+        
         return True
         
     except Exception as e:
@@ -856,12 +930,14 @@ def test_configuration():
         file_size = os.path.getsize(extemp_file)
         print(f"✅ Extemp file exists: {extemp_file} ({file_size} bytes)")
         
-        # Quick check of file content
+        # Quick check of file content and truncation potential
         try:
             with open(extemp_file, 'r', encoding='utf-8') as f:
                 content = f.read()
                 link_count = len(re.findall(r'^Link: ', content, re.MULTILINE))
+                and_count = len(re.findall(r',\s*and\b', content, re.IGNORECASE))
                 print(f"📊 Found {link_count} articles in extemp file")
+                print(f"✂️ Found {and_count} questions that will be truncated at ',and'")
         except Exception as e:
             print(f"⚠️ Could not read extemp file: {e}")
     else:
@@ -876,6 +952,24 @@ def test_configuration():
             print(f"⚠️ Could not read sent log: {e}")
     else:
         print(f"📋 Sent log missing: {sent_log_file} (will be created on first send)")
+    
+    # Test truncation function
+    print(f"\n✂️ Testing question truncation feature:")
+    test_sender = ExtempEmailSender()
+    test_questions = [
+        "How effective is superchlorination as a solution to the turbidity issue in Asheville's water supply, and what alternative methods could be explored?",
+        "What are the implications of the trade war, and how will it affect consumers?",
+        "Why did the stock market crash yesterday?",
+        "How has climate change affected agriculture, and what can farmers do to adapt?"
+    ]
+    
+    for original in test_questions:
+        truncated = test_sender.truncate_question_at_and(original)
+        if original != truncated:
+            print(f"  ✂️ Original: {original}")
+            print(f"  ✅ Truncated: {truncated}")
+        else:
+            print(f"  ➡️ No change: {original}")
     
     if missing_vars:
         print(f"\n❌ Missing required variables: {', '.join(missing_vars)}")
@@ -912,6 +1006,7 @@ USAGE:
 DESCRIPTION:
     Reads extemp questions from extemp_questions.txt and sends them via email.
     Tracks sent questions to avoid duplicates.
+    Automatically truncates questions at ',and' for better focus.
     
 REQUIRED ENVIRONMENT VARIABLES:
     SENDER_EMAIL        Your email address
@@ -924,6 +1019,14 @@ OPTIONAL ENVIRONMENT VARIABLES:
     MAX_QUESTIONS_PER_EMAIL  Questions per email (default: 10)
     EXTEMP_FILE         Questions file path (default: extemp_questions.txt)
     SENT_LOG_FILE       Sent log file path (default: sent_questions_log.txt)
+
+QUESTION TRUNCATION FEATURE:
+    Questions containing ',and' are automatically shortened:
+    - "How effective is this solution, and what alternatives exist?" 
+      becomes "How effective is this solution?"
+    - Only the first part before ',and' is kept
+    - A '?' is added if the truncated question doesn't end with one
+    - Original questions are preserved internally for reference
 
 GMAIL SETUP:
     1. Enable 2-Factor Authentication
