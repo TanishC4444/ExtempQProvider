@@ -8277,3 +8277,190 @@ Q3. How does the success of the Sweeney ad campaign compare to previous marketin
 
 ================================================================================
 
+
+Link: https://www.nytimes.com/live/2025/08/12/business/cpi-inflation-tariffs-fed/car-companies-are-paying-the-tariffs-for-now
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: Domestic
+Q1. To what extent do President Trump's tariffs contribute to inflation pressures across various consumer goods and services?
+
+Category: International
+Q2. What are the implications of the Federal Reserve's potential decision to lower interest rates in September, given the ongoing trade tensions with China and Canada?
+
+Category: Domestic
+Q3. How effective is the Bureau of Labor Statistics' data on underlying inflation in providing insights into businesses' ability to pass along tariff-related costs to customers?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/live/2025/08/12/business/cpi-inflation-tariffs-fed/trumps-pick-for-a-new-statistics-chief-has-questioned-the-bureaus-methods
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: Domestic
+Q1. To what extent do President Trump's tariffs contribute to inflationary pressures on consumer goods and services?
+
+Category: International
+Q2. What are the implications of the Federal Reserve's decision to lower interest rates in light of rising inflation caused by tariffs on imported goods?
+
+Category: Domestic/International
+Q3. How effective are businesses at passing along tariff-related costs to their customers, and what factors influence this ability?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/live/2025/08/12/business/cpi-inflation-tariffs-fed/companies-are-making-hard-choices-as-tariffs-take-effect
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: Domestic
+Q1. To what extent should President Trump's tariffs be credited for the recent increase in underlying inflation?
+
+Category: International
+Q2. What are the implications of the Federal Reserve's potential decision to lower interest rates at its next meeting, given the ongoing trade tensions with China and Canada?
+
+Category: Domestic/International
+Q3. How effective are tariffs as a tool for addressing trade deficits, considering the recent experience of companies that import products and the potential impact on consumers?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/2025/05/23/books/tolkien-musk-thiel-silicon-valley.html
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: International
+Q1. What are the implications of Elon Musk and Peter Thiel's fascination with "The Lord of the Rings" for the future of technology and innovation?
+
+Category: Domestic
+Q2. How does the rejection of consumer culture in "The Lord of the Rings" align with the values of today's far-right politicians, and what are the potential consequences of this alignment?
+
+Category: International
+Q3. To what extent do the cautionary tales in "The Lord of the Rings" reflect the current geopolitical climate, and how might their message be adapted to address contemporary issues such as climate change and nuclear proliferation?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/live/2025/08/06/business/tariffs-trump-trade/some-safe-haven-assets-have-soared-against-the-us-dollar
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: International
+Q1. To what extent should Switzerland remain independent from the European Union after facing a 39% tariff on its goods in the United States?
+
+Category: International
+Q2. What factors contribute to the high tariff rate imposed by the US on Swiss goods, and how can Switzerland effectively address these concerns?
+
+Category: International
+Q3. How effective are the recent trade agreements between the US and the European Union, and what implications do they have for small businesses in both regions?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/2025/08/07/business/economy/tariffs-southeast-asia-transshipments.html
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: International
+Q1. What are the implications of the United States' unilateral approach to defining rules of origin for Southeast Asian countries?
+
+Category: International
+Q2. How effective is the Trump administration's strategy of floating numbers to determine rules of origin for Southeast Asian countries?
+
+Category: International
+Q3. To what extent do multinational companies benefit from shifting their manufacturing to Southeast Asia, and how does this impact trade relations between the United States and China?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/live/2025/08/06/business/tariffs-trump-trade/overturning-the-global-trade-system-trump-puts-his-ideas-to-the-test
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: International
+Q1. What are the implications of the 39% tariff on Swiss goods in the United States for Switzerland's economy and its future trade relations with the US?
+
+Category: International
+Q2. To what extent does the current trade crisis between Switzerland and the US reflect broader geopolitical tensions, and how might these tensions impact future negotiations and agreements between the two countries?
+
+Category: International
+Q3. What factors have contributed to the increasing protectionism of the Trump administration towards US trade relations with other countries, and what are the potential consequences for global economic stability and cooperation?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/live/2025/08/06/business/tariffs-trump-trade/heres-the-latest
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: International
+Q1. What are the implications of the 39% tariff on Swiss goods in the United States for Switzerland's economy and its relationship with the EU?
+
+Category: International
+Q2. How effective is the Swiss government's approach to addressing President Trump's concerns about trade deficits, and what factors should be considered when evaluating its success?
+
+Category: International
+Q3. What are the potential long-term consequences of this trade conflict for Switzerland's independence from the EU and its future economic ties with the United States?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/2025/08/11/magazine/hurricane-disaster-information-media-blackout.html
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: Domestic
+Q1. To what extent does the lack of trust in public water supply affect the effectiveness of emergency response measures?
+
+Category: Domestic
+Q2. What are the implications of lead detection in potable water for public health and safety?
+
+Category: Domestic
+Q3. How effective is superchlorination as a solution to turbidity issues in potable water supplies?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/2025/08/08/podcasts/hardfork-gpt5-alexa.html
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: Domestic/International
+Q1. How effective are reasoning models in providing high-quality experiences for users, and what factors should OpenAI consider when designing their router to analyze requests and determine the necessary computation?
+
+Category: Domestic/International 
+Q2. What implications does the release of GPT-5 have on the AI frontier, and how do competitors respond to this new development? Should we expect a shift in pricing pressure among well-capitalized AI labs?
+
+Category: Domestic/International 
+Q3. To what extent does OpenAI's decision to make reasoning capability available to free users of ChatGPT affect the quality of their experience, and how might this change impact the future development of AI models?
+
+================================================================================
+
+
+Link: https://www.nytimes.com/2025/08/07/business/sydney-sweeney-ad-right-wing-media.html
+Info: News Article from 
+================================================================================
+NSDA EXTEMPORANEOUS SPEAKING QUESTIONS
+================================================================================
+Category: Domestic Politics
+Q1. To what extent do you agree with Brian Tyler Cohen's assertion that no one on the left has attacked the Sweeney ad?
+
+Category: International Politics
+Q2. What are the implications of American Eagle's successful campaign for their brand image and sales, considering the controversy surrounding the ads?
+
+Category: Brand Management
+Q3. How effective do you think American Eagle's decision to stay out of the fray has been in managing their brand reputation during the controversy surrounding the ads?
+
+================================================================================
+
